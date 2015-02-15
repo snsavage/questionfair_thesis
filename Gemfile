@@ -6,6 +6,8 @@ gem 'rails', '4.1.8'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+gem 'devise'
+
 group :development, :test do
       gem 'rspec-rails', '~> 3.0'
       gem 'shoulda-matchers'
@@ -17,6 +19,10 @@ end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
+
+gem 'bootstrap-sass', '~> 3.3.3'
+# gem 'sass-rails', '>= 3.2'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
