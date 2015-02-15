@@ -1,0 +1,9 @@
+<ul>
+  <% @questions.each do |question| %>
+    <li>
+      <%= question.question %> | 
+      <%= question.category %> |
+      <%= link_to 'Show', question_path(question) %>
+    </li>
+  <% end %>
+</ul>
