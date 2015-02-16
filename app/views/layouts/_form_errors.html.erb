@@ -1,8 +1,13 @@
 <% if form_errors.errors.any? %>
-  <ul>
+
     <% form_errors.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
+
+      <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        <%= message %>
+      </div>
     <% end %>
-  </ul>
+
 <% end %> 
 
