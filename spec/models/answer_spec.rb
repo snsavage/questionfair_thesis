@@ -19,7 +19,7 @@ describe Answer do
     expect(answer).to_not be_valid
   end
 
-  it "has maximum lenght of 500 chars" do
+  it "has maximum lenghth of 500 chars" do
     answer = build(:answer, answer: 'q'*501)
     expect(answer).to_not be_valid
   end
