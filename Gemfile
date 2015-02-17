@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
 # Use postgresql as the database for Active Record
+# env ARCHFLAGS="-arch x86_64" gem install pg -- --with-pg-config=/Applications/Postgres.app/Contents/Versions/9.4/bin/pg_config
 gem 'pg'
 
 gem 'devise'
@@ -56,6 +57,6 @@ gem 'spring',        group: :development
 
 gem 'rails_12factor', group: :production
 
-ruby '2.1.1' 
+ruby '2.2.0' 
 
 
