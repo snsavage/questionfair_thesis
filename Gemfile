@@ -13,9 +13,6 @@ group :development, :test do
       gem 'rspec-rails', '~> 3.0'
       gem 'shoulda-matchers'
       gem "factory_girl_rails", "~> 4.0"
-      gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
-      gem 'guard-rspec'
-      #gem 'spork', '~> 1.0rc'
 end
 
 # Use SCSS for stylesheets
