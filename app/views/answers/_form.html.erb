@@ -1,0 +1,34 @@
+<div class="row"> 
+  <div class="col-md-12"> 
+    <%= form_for([@question, @answer]) do |form| %>
+
+      <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Answer this question...</h3>
+          </div>
+          <div class="panel-body">
+
+            <% if @answer.errors.any? %>
+            <div class="alert alert-danger" role="alert">
+            <ul>
+                <% @answer.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-group">
+            <%= form.label 'Answer:' %><br>
+            <%= form.text_area :answer,  class: "form-control", rows: "3", 
+              placeholder: "Write your answer here." %>
+          </div>
+          <%= form.submit %>
+
+          </div>
+      </div>
+
+
+    <% end %>
+  </div>
+</div>

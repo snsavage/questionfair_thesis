@@ -21,6 +21,10 @@ FactoryGirl.define do
   factory :answer do
     association :question
     answer "An answer!"
+
+    factory :invalid_answer do
+      answer nil
+    end
   end
 
 end

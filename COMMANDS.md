@@ -36,6 +36,8 @@ Spec can be run with the ```bundle exec rspec``` command.
 	
 	rails generate controller Questions
 	
+	rails generate controller Answers
+	
 
 ## Devise Instructions
 ```

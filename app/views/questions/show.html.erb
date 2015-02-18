@@ -10,3 +10,21 @@
     </ul>
   </div>
 </div>
+
+<ul class="list-group">
+            <% @question.answers.each do |answer| %>
+          <% if !answer.answer.nil? %>
+
+              <li class="list-group-item">
+                
+                <%= answer.answer %>
+
+
+              </li>
+           
+            <% end %>
+            <% end %>
+          </ul>
+
+
+<%= render 'answers/form' %>
