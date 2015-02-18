@@ -1,5 +1,6 @@
 class Question < ActiveRecord::Base
 
+  belongs_to :user, touch: true
   has_many :answers 
 
   CATEGORIES = %w(Entertainment Hotels Movies Other Restaurants Shopping 

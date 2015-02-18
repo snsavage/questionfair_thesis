@@ -1,5 +1,8 @@
 <% @questions.each do |question| %>
   <div class="panel panel-default">
+    <div class="panel-header">
+      <%= question.user.nickname %>
+    </div>
     <div class="panel-body">
       <%= question.question %>
     </div>
