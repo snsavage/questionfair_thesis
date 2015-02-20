@@ -1,5 +1,5 @@
 <% @questions.each do |question| %>
-  <div class="panel panel-default">
+<!--   <div class="panel panel-default">
     <div class="panel-header">
       <%= question.user.nickname %>
     </div>
@@ -13,5 +13,30 @@
         <li><%= link_to 'Delete', question_path(question), method: :delete %></li>
       </ul>
     </div>
+  </div> -->
+
+  <div class="col-md-offset-1 col-sm-8">
+    <div class="row">
+      <div class="col-sm-8">
+        <h4><%= link_to question.question, question_path(question) %></h4>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="text-right">Answers <span class="badge"><%= question.answers.count %></spam></h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-8">
+        <h4><small>Asked by <%= question.user.nickname %> on 
+          <%= question.created_at.strftime("%A, %B %d, %Y") %> at 
+          <%= question.created_at.strftime("%I:%M %p") %> EST.</small></h4>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="text-right"><span class="label label-primary"><%= question.category %></span></h5>
+      </div>
+    </div>
+    <hr />
   </div>
+  
+
+
 <% end %>

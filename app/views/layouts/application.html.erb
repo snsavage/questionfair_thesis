@@ -12,25 +12,12 @@
   
   
   <div class="container">
-    <%= render 'layouts/nav' %>
-
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
-    <% flash.each do |name, msg| %>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="alert alert-danger" role="alert">
-            
-            <%= content_tag :div, msg, id: "flash_#{name}" %>
-            
-          </div>
-        </div>
-      </div>
-    <% end %>
+  <%= render 'layouts/nav' %>
+  <%= render 'layouts/flash' %>
 
 
-    <%= yield %>
+
+  <%= yield %>
 
   </div>
 </body>
