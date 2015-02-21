@@ -12,8 +12,8 @@ class User < ActiveRecord::Base
   validates :nickname, length: { minimum: 2 }
   validates :nickname, length: { maximum: 15 }
 
-  # validates :email
 
+  # Source: http://railscasts.com/episodes/244-gravatar
 
 
 end

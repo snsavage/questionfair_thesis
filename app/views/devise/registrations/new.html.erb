@@ -1,58 +1,67 @@
-<h2>Sign up</h2>
+<div class="col-md-offset-1 col-sm-8">
+  <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form-horizontal" } ) do |f| %>
-  <%= devise_error_messages! %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), 
+    html: { class: "form-horizontal" } ) do |f| %>
+    
+    <%= devise_error_messages! %>
 
-  <div class="form-group">
-    <div class="col-sm-3">
-      <%= f.label :email, class: "control-label" %>
+    <div class="form-group">
+      <div class="col-sm-3">
+        <%= f.label :email, class: "control-label" %>
+      </div>
+      <div class="col-sm-5">
+        <%= f.email_field :email, autofocus: true, class: "form-control" %>
+      </div>
     </div>
-    <div class="col-sm-5">
-      <%= f.email_field :email, autofocus: true, class: "form-control" %>
-    </div>
-  </div>
 
-  <div class="form-group">
-    <div class="col-sm-3">
-      <%= f.label :nickname, class: "control-label" %>
+    <div class="form-group">
+      <div class="col-sm-3">
+        <%= f.label :nickname, class: "control-label" %>
+          
+      </div>
+      <div class="col-sm-5">
+        <%= f.text_field :nickname, class: "form-control" %>
+        <span class="help-block">
+          For public display on the site.  (2 to 15 Characters.)
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-3">
+        <%= f.label :password, class: "control-label" %>
         
+      </div>
+      <div class="col-sm-5">
+        <%= f.password_field :password, autocomplete: "off", 
+          class: "form-control"%>
+        <span class="help-block">
+          <% if @validatable %>
+            (<%= @minimum_password_length %> Characters Minimum.)
+        <% end %>
+        </span>
+      </div>
     </div>
-    <div class="col-sm-5">
-      <%= f.text_field :nickname, class: "form-control" %>
-      <span class="help-block">
-        For public display on the site.  (2 to 15 Characters.)
-      </span>
-    </div>
-  </div>
 
-  <div class="form-group">
-    <div class="col-sm-3">
-      <%= f.label :password, class: "control-label" %>
-      
+    <div class="form-group">
+      <div class="col-sm-3">
+        <%= f.label :password_confirmation, class: "control-label" %>
+      </div>
+      <div class="col-sm-5">
+        <%= f.password_field :password_confirmation, autocomplete: "off", 
+          class: "form-control" %>
+      </div>
     </div>
-    <div class="col-sm-5">
-      <%= f.password_field :password, autocomplete: "off", 
-        class: "form-control"%>
-      <span class="help-block">
-        <% if @validatable %>
-          (<%= @minimum_password_length %> Characters Minimum.)
-      <% end %>
-      </span>
+    
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-5">
+        <%= f.submit "Sign up", class: "btn btn-default" %>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <div class="col-sm-3">
-      <%= f.label :password_confirmation, class: "control-label" %>
-    </div>
-    <div class="col-sm-5">
-      <%= f.password_field :password_confirmation, autocomplete: "off", 
-        class: "form-control" %>
-    </div>
-  </div>
+  <% end %>
 
-  <%= f.submit "Sign up", class: "btn btn-default" %>
+  <%= render "devise/shared/links" %>
 
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
