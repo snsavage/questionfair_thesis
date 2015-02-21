@@ -24,45 +24,63 @@
   
   <hr />
 
+  <% if @question.answers.any? { |answer| !answer.answer.nil? } %>
+    <h3>Answers</h3>
+  <% else %>
+    <h4>No answers have been provided.</h4>
+  <% end %>
 
+
+  <% @question.answers.each do |answer| %>
+
+    <% if !answer.answer.nil? %>
+
+      <div class="media">
+        <div class="media-left">
+          <%= image_tag(gravatar_url(answer.user), 
+            size: "48x48", alt: "Gravatar", class: "media-object") %>
+        </div>
+
+        <div class="media-body">
+          <h4 class="media-heading"><%= answer.answer %></h4>
+          <h4><small>Answer provided by <%= answer.user.nickname %> on 
+          <%= answer.created_at.strftime("%A, %B %d, %Y") %> at 
+          <%= answer.created_at.strftime("%I:%M %p") %> EST.</small></h4>
+        </div>
+      </div>
+
+    <% end %>
+  <% end %>
 
 
 
 </div>
 
 <!-- sidebar -->
+
 <div class="col-sm-3">
+
+  <% if user_signed_in? && current_user.id == @question.user_id %>
+    <div class="row">    
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Question Controls</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            <%= current_user.nickname.capitalize %>, would you like to edit or remove this question?
+          </p>
+          <ul class="list">
+            <li><%= link_to 'Edit Question', edit_question_path(@question) %></li>
+            <li><%= link_to 'Delete Question', question_path(@question), 
+              data: { confirm: "Are you sure?" }, method: :delete %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
   <%= render 'answers/form' %> 
 </div>
 
 
-
-<!-- <div class="panel panel-default">
-  <div class="panel-body">
-    <%= @question.question %>
-  </div>
-  <div class="panel-footer">
-    <ul class="list-inline">
-      <li><%= link_to 'Show', question_path(@question) %></li>
-      <li><%= link_to 'Edit', edit_question_path(@question) %></li>
-      <li><%= link_to 'Delete', question_path(@question), method: :delete %></li>
-    </ul>
-  </div>
-</div>
-
-<ul class="list-group">
-            <% @question.answers.each do |answer| %>
-          <% if !answer.answer.nil? %>
-
-              <li class="list-group-item">
-                
-                <%= answer.answer %>
-
-
-              </li>
-           
-            <% end %>
-            <% end %>
-          </ul>
-
--->
