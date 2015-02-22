@@ -1,0 +1,83 @@
+<div class="col-sm-12">
+  <div class="row">
+    <h2>Dashboard</h2>
+    <hr />
+    <div class="col-md-6">
+      <h4>Questions you have asked.</h4>
+      <hr />
+
+      <% @questions.each do |question| %>
+
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-8">
+              <h4><%= link_to question.question, question_path(question) %></h4>
+            </div>
+            <div class="col-sm-4">
+              <h5 class="text-right">Answers 
+                <span class="badge"><%= question.answers.count %></spam>
+              </h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
+              <h4><small>Asked on 
+                <%= question.created_at.strftime("%A, %B %d, %Y") %> at 
+                <%= question.created_at.strftime("%I:%M %p") %> EST.</small></h4>
+            </div>
+            <div class="col-sm-4">
+              <h5 class="text-right"><span class="label label-primary"><%= question.category %></span></h5>
+            </div>
+          </div>
+          <hr />
+        </div>
+        
+      <% end %>
+
+    
+
+    </div>
+
+    <div class="col-md-6">
+      <h4>Answers you have provided.</h4>
+      <hr />
+      
+      <% @answers.each do |answer| %>
+        <div class=" col-sm-12">
+          <div class="row">
+            <div class="col-sm-12">
+              <h4 class="text-left">
+                <%= link_to answer.question.question, question_path(answer.question) %>
+              </h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <h4>Your Answer:</h4>
+            </div>
+            <div class="col-sm-8">
+              <h4 class="text-left">
+                <small><%= answer.answer %></small>
+              </h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-9">
+              <h4><small>Answered on 
+                <%= answer.created_at.strftime("%A, %B %d, %Y") %> at 
+                <%= answer.created_at.strftime("%I:%M %p") %> EST.</small></h4>
+            </div>
+            <div class="col-sm-3">
+              <h5 class="text-right"><span class="label label-primary"><%= answer.question.category %></span></h5>
+            </div>
+          </div>
+          <hr />
+        </div>
+
+      <% end %>
+
+    </div>
+
+
+  </div>
+</div>
