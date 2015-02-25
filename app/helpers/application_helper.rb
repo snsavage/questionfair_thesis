@@ -13,8 +13,6 @@ module ApplicationHelper
     BOOTSTRAP_FLASH_MSG[flash_type.to_sym]
   end
 
-
-
   # Code from http://railscasts.com/episodes/244-gravatar
   def gravatar_url(user)
     gravatar_id = Digest::MD5.hexdigest(user.email.downcase)

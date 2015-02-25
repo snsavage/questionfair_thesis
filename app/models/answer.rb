@@ -7,5 +7,4 @@ class Answer < ActiveRecord::Base
   validates :answer, presence: true
   validates :answer, length: { maximum: 500 } 
 
-
 end

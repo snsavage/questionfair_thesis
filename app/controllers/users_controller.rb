@@ -11,9 +11,6 @@ class UsersController < ApplicationController
       render 'questions#index'
     end
 
-
   end
-
-
 
 end
