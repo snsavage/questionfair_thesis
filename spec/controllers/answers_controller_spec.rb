@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe AnswersController do
+RSpec.describe AnswersController do
 
   describe 'POST #create' do
     context "without @question" do
@@ -10,14 +10,17 @@ describe AnswersController do
 
     context "with valid attributes" do
       before :each do
+        @request.env["devise.mapping"] = Devise.mappings[:user]
+        @user = FactoryGirl.create(:user)
+        # user.confirm! # or set a confirmed_at inside the factory. Only necessary if you are using the "confirmable" module
+        sign_in @user
         @question = create(:question)
-        @answer = create(:answer, question: @question)
-        @answer_attributes = FactoryGirl.attributes_for(:answer, question_id: @question)
+        @answer_attributes = attributes_for(:answer, question_id: @question)
       end
 
       it "saves the new answer to the database" do
         expect{
-          post :create, question_id: @question, answer: @answer
+          post :create, question_id: @question, answer: @answer_attributes
         }.to change(Answer, :count).by(1)
       end
 

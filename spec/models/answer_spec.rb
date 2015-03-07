@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Answer do
+RSpec.describe Answer do
   it "is valid with a valid question" do
     answer = build(:answer)
     expect(answer).to be_valid

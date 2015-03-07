@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe QuestionsController do
+RSpec.describe QuestionsController do
 
   describe 'GET #index' do
     it "returns an array of all questions" do

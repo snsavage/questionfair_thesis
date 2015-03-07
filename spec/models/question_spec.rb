@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Question do
+RSpec.describe Question do
   it "is valid with a valid question and category" do
     question = build(:question)
     expect(question).to be_valid

@@ -1,9 +1,10 @@
 FactoryGirl.define do  
 
   factory :user do
-    nickname "MyString"
-    first_name "MyString"
-    last_name "MyString"
+    nickname "test_user"
+    email "example@example.com"
+    password "long_secret"
+    password_confirmation "long_secret"
   end
 
 
