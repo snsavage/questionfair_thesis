@@ -9,6 +9,9 @@ gem 'pg'
 
 gem 'devise'
 
+gem 'will_paginate', '~> 3.0.6'
+gem 'will_paginate-bootstrap'
+
 group :development, :test do
       gem 'rspec-rails', '~> 3.0'
       gem 'shoulda-matchers'
@@ -18,6 +21,7 @@ end
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'faker'
+  gem 'quiet_assets'
 end
 
 # Use SCSS for stylesheets
