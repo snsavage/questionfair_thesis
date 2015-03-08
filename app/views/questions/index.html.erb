@@ -15,42 +15,55 @@
 </div>
 
 <div class="col-md-8">
-  <h3 class="recent-questions">Recent Questions</h3>
-
-  <div class="text-center">
-    <%= will_paginate @questions, class: "pagination-sm", renderer: BootstrapPagination::Rails %>
-  </div>
-
-  <% @questions.each do |question| %>
-
-    <div class="col-md-12">
-      <div class="row">
-        <div class="col-sm-8">
-          <h4><%= link_to question.question, question_path(question) %></h4>
-        </div>
-        <div class="col-sm-4">
-          <h5 class="text-right">Answers 
-            <span class="badge"><%= question.answers.count %></span>
-          </h5>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-8">
-          <h4><small>Asked by <%= question.user.nickname %> on 
-            <%= question.created_at.strftime("%A, %B %d, %Y") %> at 
-            <%= question.created_at.strftime("%I:%M %p") %> EST.</small></h4>
-        </div>
-        <div class="col-sm-4">
-          <h5 class="text-right"><span class="label label-primary"><%= question.category %></span></h5>
-        </div>
-      </div>
-      <hr />
+  <% if @questions.count == 0 %>
+    <div class="col-md-12 text-center">
+      <h4>No questions have been asked in this category.</h4>
+      <h4><small><%= link_to "Click Here", new_question_path %> to ask a ne question.</small></h4>
     </div>
-    
-  <% end %>
+  <% elsif %>
+  
+    <% if @category == "All" %>
+      <h3 class="recent-questions">All Recent Questions</h3>
+    <% else %>
+      <h3 class="recent-questions"><%= @category.singularize.titleize %> Questions</h3>
+    <% end %>
 
-  <div class="text-center">
-    <%= will_paginate @questions, class: "pagination-sm", renderer: BootstrapPagination::Rails %>
-  </div>
+    <div class="text-center">
+      <%= will_paginate @questions, class: "pagination-sm", renderer: BootstrapPagination::Rails %>
+    </div>
+
+    <% @questions.each do |question| %>
+
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-sm-8">
+            <h4><%= link_to question.question, question_path(question) %></h4>
+          </div>
+          <div class="col-sm-4">
+            <h5 class="text-right">Answers 
+              <span class="badge"><%= question.answers.count %></span>
+            </h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <h4><small>Asked by <%= question.user.nickname %> on 
+              <%= question.created_at.strftime("%A, %B %d, %Y") %> at 
+              <%= question.created_at.strftime("%I:%M %p") %> EST.</small></h4>
+          </div>
+          <div class="col-sm-4">
+            <h5 class="text-right"><span class="label label-primary"><%= question.category %></span></h5>
+          </div>
+        </div>
+        <hr />
+      </div>
+      
+    <% end %>
+
+    <div class="text-center">
+      <%= will_paginate @questions, class: "pagination-sm", renderer: BootstrapPagination::Rails %>
+    </div>
+
+  <% end %> 
 
 </div>
