@@ -3,11 +3,15 @@ class QuestionsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
 
   def index
-    if Question::CATEGORIES.include?(params[:category])
-      @questions = Question.find_by_category(params[:category]).page(params[:page]).order('created_at DESC').per_page(20)
+
+    if Question::category_in_categories?(params[:category])
+      @category = params[:category]
+      @questions = Question.by_category(@category).page(params[:page]).order('created_at DESC').per_page(20)
     else
+      @category = "All"
       @questions = Question.page(params[:page]).order('created_at DESC').per_page(20)
     end
+
   end
 
   def show
