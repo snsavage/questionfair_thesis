@@ -21,7 +21,7 @@
       <div class="form-group">
       <%= form.label "Category", class: "control-label col-sm-2" %>
         <div class="col-sm-7" >
-          <%= form.select(:category, Question::CATEGORIES, 
+          <%= form.select(:category, Question::CATEGORIES.sort, 
             { prompt: "Select a Category" }, { class: "form-control" } ) %>
         </div>
       </div>

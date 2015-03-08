@@ -3,7 +3,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">Categories</div>
     <div class="list-group" >
-      <% Question.category_list.sort.each do |category| %>
+      <% Question.category_list_with_all.sort.each do |category| %>
         <% if category == @category %>
             <%= link_to category.titleize, {:controller => "questions", :action => "index", :category => category }, class: "list-group-item active" %>
         <% else %>
@@ -17,8 +17,8 @@
 <div class="col-md-8">
   <% if @questions.count == 0 %>
     <div class="col-md-12 text-center">
-      <h4>No questions have been asked in this category.</h4>
-      <h4><small><%= link_to "Click Here", new_question_path %> to ask a ne question.</small></h4>
+      <h4>No questions have been asked in the <%= @category.titleize %> category.</h4>
+      <h4><small><%= link_to "Click Here", new_question_path %> to ask a new question.</small></h4>
     </div>
   <% elsif %>
   

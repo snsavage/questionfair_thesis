@@ -3,8 +3,8 @@ class Question < ActiveRecord::Base
   belongs_to :user, touch: true
   has_many :answers 
 
-  CATEGORIES = %w(All Entertainment Hotels Movies Other Restaurants Shopping 
-                    Sports  Technology Television Vacations)
+  CATEGORIES = %w(Entertainment Hotels Movies Other Restaurants Shopping 
+                    Sports  Technology Television Vacations Books)
 
   validates :question, :category, presence: true
   validates :question, length: { maximum: 500 }
@@ -23,6 +23,10 @@ class Question < ActiveRecord::Base
 
   def self.category_list
     CATEGORIES
+  end
+
+  def self.category_list_with_all
+    CATEGORIES + ["All"]
   end
 
   def self.category_in_categories?(category)
