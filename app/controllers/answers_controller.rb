@@ -3,7 +3,6 @@ class AnswersController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    raise
     @question = Question.find(params[:question_id])
     @answer = @question.answers.build(answer_params)
     @answer.user_id = current_user.id
