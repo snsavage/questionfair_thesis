@@ -33,4 +33,8 @@ class Question < ActiveRecord::Base
     category_list.include?(category) ? true : false
   end
 
+  scope :search, -> search { 
+    where("question ILIKE ? OR category ILIKE ?", "%#{search}%", "%#{search}%")
+  }
+
 end

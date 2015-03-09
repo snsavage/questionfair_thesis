@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   #   resources :products
   resources :questions do
     resources :answers, only: [ :create, :destroy ]
+    collection do
+      get 'search'
+    end
   end
 
   resources :users, only: [ :index ]

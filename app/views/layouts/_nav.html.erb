@@ -17,6 +17,14 @@
         <li role="presentation"><%= link_to 'Home', questions_path %></li>
         <li role="presentation"><%= link_to 'Ask a Question', new_question_path %></li>
       </ul>
+      
+      <%= form_tag search_questions_path, :method => 'get', class: "navbar-form navbar-left", role: "search" do %>
+        <div class="form-group">
+          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search" %>
+          <%= submit_tag "Search", :name => nil, class: "btn btn-default" %>
+        </div>
+      <% end %>
+
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
           <li role="presentation"><%= link_to 'Dashboard', users_path %></li>

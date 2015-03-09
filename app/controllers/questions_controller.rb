@@ -1,6 +1,12 @@
 class QuestionsController < ApplicationController
 
-  before_filter :authenticate_user!, except: [:index, :show]
+  before_filter :authenticate_user!, except: [:index, :show, :search]
+
+  def search
+
+    @questions = Question.search(params[:search]) #.page(params[:page]).order('created_at DESC').per_page(20)
+
+  end
 
   def index
 
