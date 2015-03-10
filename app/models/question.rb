@@ -42,7 +42,9 @@ class Question < ActiveRecord::Base
 
   pg_search_scope :search_all, 
     against: [:question, :category], 
-    associated_against: { answers: :answer }
+    associated_against: { answers: :answer },
+    using: [:tsearch, :trigram, :dmetaphone]
+    #using: [:tsearch, :trigram, :dmetaphone]
 
 
 end
