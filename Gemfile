@@ -7,6 +7,8 @@ gem 'rails', '4.1.8'
 # env ARCHFLAGS="-arch x86_64" gem install pg -- --with-pg-config=/Applications/Postgres.app/Contents/Versions/9.4/bin/pg_config
 gem 'pg'
 
+gem 'pg_search'
+
 gem 'devise'
 
 gem 'will_paginate', '~> 3.0.6'

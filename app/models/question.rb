@@ -1,5 +1,7 @@
 class Question < ActiveRecord::Base
 
+  include PgSearch
+
   belongs_to :user, touch: true
   has_many :answers 
 
@@ -37,5 +39,10 @@ class Question < ActiveRecord::Base
     # where("question ILIKE ? OR category ILIKE ?", "%#{search}%", "%#{search}%")
     where("question @@ ? OR category @@ ?", search, search)
   }
+
+  pg_search_scope :search_all, 
+    against: [:question, :category], 
+    associated_against: { answers: :answer }
+
 
 end

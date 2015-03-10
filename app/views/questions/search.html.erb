@@ -1,6 +1,12 @@
 <div class="col-md-8">
 
-
+    <div class="col-md-12 text-center">
+      <h4>Search Results</h4>
+    </div>
+    
+    <div class="text-center">
+      <%= will_paginate @questions, class: "pagination-sm", renderer: BootstrapPagination::Rails %>
+    </div>
 
     <% @questions.each do |question| %>
 
@@ -29,6 +35,10 @@
       </div>
       
     <% end %>
+
+    <div class="text-center">
+      <%= will_paginate @questions, class: "pagination-sm", renderer: BootstrapPagination::Rails %>
+    </div>
 
 
 </div>

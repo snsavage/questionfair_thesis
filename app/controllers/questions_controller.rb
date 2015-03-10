@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
 
   def search
 
-    @questions = Question.search(params[:search]) #.page(params[:page]).order('created_at DESC').per_page(20)
+    @questions = Question.search_all(params[:search]).page(params[:page]).order('created_at DESC').per_page(20)
 
   end
 
