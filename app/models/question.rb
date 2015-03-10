@@ -34,7 +34,8 @@ class Question < ActiveRecord::Base
   end
 
   scope :search, -> search { 
-    where("question ILIKE ? OR category ILIKE ?", "%#{search}%", "%#{search}%")
+    # where("question ILIKE ? OR category ILIKE ?", "%#{search}%", "%#{search}%")
+    where("question @@ ? OR category @@ ?", search, search)
   }
 
 end
