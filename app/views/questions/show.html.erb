@@ -42,9 +42,8 @@
 
         <div class="media-body">
           <h4 class="media-heading"><%= answer.answer %></h4>
-          <h4><small>Answer provided by <%= answer.user.nickname %> on 
-          <%= answer.created_at.strftime("%A, %B %d, %Y") %> at 
-          <%= answer.created_at.strftime("%I:%M %p") %> EST.</small></h4>
+          <h4><small>Answer provided by <%= answer.user.nickname %> 
+            <%= time_ago_in_words(answer.created_at, include_seconds: false) %> ago. </small></h4>
         </div>
       </div>
 

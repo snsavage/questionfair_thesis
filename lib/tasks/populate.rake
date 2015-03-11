@@ -16,7 +16,8 @@ namespace :db do
                                 :last_name => Faker::Name.last_name,
                                 :email => Faker::Internet.email,
                                 :password => password,
-                                :password_confirmation => password)    
+                                :password_confirmation => password,
+                                :time_zone => 'Eastern Time (US & Canada)')    
 
       rand(20).times do |b|
         Question.create!(:question => Faker::Lorem.sentence(rand(20), true),

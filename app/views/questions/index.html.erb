@@ -47,9 +47,8 @@
         </div>
         <div class="row">
           <div class="col-sm-8">
-            <h4><small>Asked by <%= question.user.nickname %> on 
-              <%= question.created_at.strftime("%A, %B %d, %Y") %> at 
-              <%= question.created_at.strftime("%I:%M %p") %> EST.</small></h4>
+            <h4><small>Asked by <%= question.user.nickname %> 
+              <%= time_ago_in_words(question.created_at, include_seconds: false) %> ago. </small></h4>
           </div>
           <div class="col-sm-4">
             <h5 class="text-right"><span class="label label-primary"><%= question.category %></span></h5>

@@ -12,8 +12,7 @@ class User < ActiveRecord::Base
   validates :nickname, length: { minimum: 2 }
   validates :nickname, length: { maximum: 15 }
 
-
-  # Source: http://railscasts.com/episodes/244-gravatar
-
+  # Code from http://railscasts.com/episodes/106-time-zones-revised
+  validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.us_zones.map(&:name) }
 
 end
