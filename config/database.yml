@@ -83,3 +83,8 @@ production:
   database: questionfair_production
   username: questionfair
   password: <%= ENV['QUESTIONFAIR_DATABASE_PASSWORD'] %>
+  url:  <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 5 %>
+
+
+
