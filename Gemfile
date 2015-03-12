@@ -66,6 +66,8 @@ gem 'spring',        group: :development
 
 gem 'google-analytics-rails'
 
+gem 'newrelic_rpm'
+
 gem 'rails_12factor', group: :production
 
 ruby '2.2.0' 
