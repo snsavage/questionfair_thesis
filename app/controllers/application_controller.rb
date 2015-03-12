@@ -5,7 +5,10 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  around_filter :set_time_zone
+  check_authorization :unless => :devise_controller?  
+
+
+  # around_filter :set_time_zone
 
   protected
     def configure_permitted_parameters
@@ -19,6 +22,13 @@ class ApplicationController < ActionController::Base
       else
         yield
       end
+    end
+
+  # Source: https://github.com/ryanb/cancan/wiki/Accessing-Request-Data
+  private
+
+    def current_ability
+      @current_ability ||= Ability.new(current_user, params)
     end
 
 end
