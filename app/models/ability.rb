@@ -14,13 +14,13 @@ class Ability
     can :modify, Question, user_id: user.id
 
     # Abilities for Answer
-    can :create, Answer if has_ability_to_create_answer(params, user) 
+    can :create, Answer if has_ability_to_create_answer?(params, user) 
     can :modify, Answer, user_id: user.id
 
   end
 
   private
-    def has_ability_to_create_answer(params, user)
+    def has_ability_to_create_answer?(params, user)
       if params[:controller] == ("questions") && params[:action] == "show"
         Question.find(params[:id]).user_id != user.id
       elsif params[:controller] == ("answers") && params[:action] == "create"

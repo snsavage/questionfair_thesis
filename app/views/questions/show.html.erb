@@ -76,30 +76,24 @@
     </div>
   <% end %>
  
-  <% if user_signed_in? %>
-    <% if can? :create, @answer %> 
+  <% if ( can? :create, @answer ) && user_signed_in? %>
+
       <%= render 'answers/form' %>
-    <% end %>
-  <% else %>
+
+  <% elsif !user_signed_in? %>
 
     <div class="row"> 
-    
-      <div class="panel panel-default">
-
-        <div class="panel-heading">
-          <h3 class="panel-title">Sign up or Login to Answer</h3>
-        </div>
-
-        <div class="panel-body text-center">
-          <%= link_to "Sign up", new_user_registration_path, 
-            class: "btn btn-default" %>
-          <%= link_to "Login", new_user_session_path, 
-            class: "btn btn-default navbar-btn" %>
-        </div>
-
+      <div class="text-center">
+        <h4>
+          <small>
+            <%= link_to "Sign up", new_user_registration_path %> or 
+            <%= link_to "Login", new_user_session_path %> 
+            to answer this question.
+          </small>
+        </h4>
       </div>
-
     </div>
+
   <% end %>
 
 </div>
