@@ -24,7 +24,7 @@
   
   <hr />
 
-  <% if @question.answers.any? { |answer| !answer.answer.nil? } %>
+  <% if @answers.any? { |answer| !answer.answer.nil? } %>
     <h3>Answers</h3>
   <% else %>
     <h4>No answers have been provided.</h4>
@@ -78,7 +78,7 @@
  
   <% if ( can? :create, @answer ) && user_signed_in? %>
 
-      <%= render 'answers/form' %>
+      <%= render 'answers/form' %>    
 
   <% elsif !user_signed_in? %>
 
