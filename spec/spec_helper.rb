@@ -1,5 +1,11 @@
 require 'rubygems'
 
+require 'dotenv'
+Dotenv.load
+
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 # require 'factory_girl_rails'
 
 #uncomment the following line to use spork with the debugger

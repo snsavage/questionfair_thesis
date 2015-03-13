@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
 # Use postgresql as the database for Active Record
@@ -20,6 +19,9 @@ group :development, :test do
       gem 'shoulda-matchers'
       gem "factory_girl_rails", "~> 4.0"
 end
+
+gem 'dotenv-rails', :groups => [:development, :test], :require => 'dotenv/rails-now'
+gem "codeclimate-test-reporter", group: :test, require: nil
 
 group :development do
   gem 'web-console', '~> 2.0'
