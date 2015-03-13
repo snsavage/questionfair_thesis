@@ -14,10 +14,10 @@ class QuestionsController < ApplicationController
 
     if Question::category_in_categories?(params[:category])
       @category = params[:category]
-      @questions = Question.by_category(@category).page(params[:page]).order('created_at DESC').per_page(20)
+      @questions = Question.includes(:answers, :user).by_category(@category).page(params[:page]).order('created_at DESC').per_page(20)
     else
       @category = "All"
-      @questions = Question.page(params[:page]).order('created_at DESC').per_page(20)
+      @questions = Question.includes(:answers, :user).page(params[:page]).order('created_at DESC').per_page(20)
     end
 
   end

@@ -73,7 +73,7 @@ gem 'newrelic_rpm'
 gem 'rails_12factor', group: :production
 
 gem 'puma'
-gem "rack-timeout"
+gem "rack-timeout", group: :production
 
 ruby '2.2.0' 
 
