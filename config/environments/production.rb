@@ -71,7 +71,7 @@ Rails.application.configure do
   }
 
   # Specify what domain to use for mailer URLs
-  config.action_mailer.default_url_options = {host: "questionfair.com"}
+  config.action_mailer.default_url_options = {host: ENV['PROD_MAIL_HOST']}
 
 
 
