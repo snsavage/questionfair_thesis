@@ -38,6 +38,9 @@ GEM
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
     builder (3.2.2)
+    bullet (4.14.4)
+      activesupport (>= 3.0.0)
+      uniform_notifier (>= 1.6.0)
     cancancan (1.10.1)
     codeclimate-test-reporter (0.4.7)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -177,6 +180,7 @@ GEM
     uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uniform_notifier (1.7.0)
     warden (1.2.3)
       rack (>= 1.0)
     web-console (2.0.0)
@@ -193,6 +197,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass (~> 3.3.3)
+  bullet
   cancancan (~> 1.10)
   codeclimate-test-reporter
   coffee-rails (~> 4.0.0)

@@ -2,7 +2,8 @@ class AnswersController < ApplicationController
 
   before_filter :authenticate_user!
 
-  load_and_authorize_resource
+  load_and_authorize_resource :question
+  load_and_authorize_resource :answer, through: :question
 
   def create
     @question = Question.find(params[:question_id])

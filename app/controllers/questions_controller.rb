@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
 
   before_filter :authenticate_user!, except: [:index, :show, :search]
 
-  load_and_authorize_resource
+  load_and_authorize_resource :question
 
   def search
 
@@ -14,17 +14,17 @@ class QuestionsController < ApplicationController
 
     if Question::category_in_categories?(params[:category])
       @category = params[:category]
-      @questions = Question.includes(:answers, :user).by_category(@category).page(params[:page]).order('created_at DESC').per_page(20)
+      @questions = Question.includes(:user).by_category(@category).page(params[:page]).order('created_at DESC').per_page(20)
     else
       @category = "All"
-      @questions = Question.includes(:answers, :user).page(params[:page]).order('created_at DESC').per_page(20)
+      @questions = Question.includes(:user).page(params[:page]).order('created_at DESC').per_page(20)
     end
 
   end
 
   def show
     @question = Question.find(params[:id])
-    @answers = @question.answers
+    @answers = @question.answers.includes(:user)
     @answer = @question.answers.build
   end
 

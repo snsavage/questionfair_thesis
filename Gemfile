@@ -29,6 +29,7 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'faker'
   gem 'quiet_assets'
+  gem 'bullet'
 end
 
 group :test do

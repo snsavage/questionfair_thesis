@@ -14,7 +14,8 @@ class Ability
     can :modify, Question, user_id: user.id
 
     # Abilities for Answer
-    can :create, Answer if can_create_answer?(params, user) 
+    can :create, Answer
+    cannot :create, Answer, :question => { :user_id => user.id }
     can :modify, Answer, user_id: user.id
 
   end
