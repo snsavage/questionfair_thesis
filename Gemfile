@@ -25,6 +25,10 @@ gem 'bootstrap-sass', '~> 3.3.3'
 gem 'google-analytics-rails'
 gem 'newrelic_rpm'
 
+group :development, :test do
+  gem 'dotenv-rails', require: 'dotenv/rails-now'
+end
+
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'faker'
@@ -36,7 +40,6 @@ group :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers'
   gem "factory_girl_rails", "~> 4.0"
-  gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem "codeclimate-test-reporter", require: nil
 end
 
