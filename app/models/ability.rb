@@ -18,6 +18,7 @@ class Ability
     cannot :create, Answer, :question => { :user_id => user.id }
     can :modify, Answer, user_id: user.id
 
+
   end
 
   private

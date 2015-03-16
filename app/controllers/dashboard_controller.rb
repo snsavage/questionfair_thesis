@@ -6,8 +6,8 @@ class DashboardController < ApplicationController
   def index
 
     if user_signed_in?
+      @questions = current_user.questions.all
       @answers = current_user.answers.all
-      @answers = current_user.answers.includes(:question).all
     else
       render 'questions#index'
     end

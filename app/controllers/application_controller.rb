@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) << [:nickname, :time_zone]
       devise_parameter_sanitizer.for(:account_update) << [:time_zone]
+      devise_parameter_sanitizer.for(:accept_invitation).concat [:nickname, :time_zone]
     end
 
     def set_time_zone
