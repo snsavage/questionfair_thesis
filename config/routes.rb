@@ -8,7 +8,15 @@ Rails.application.routes.draw do
   authenticated :user do
     root :to => 'questions#index', as: :authenticated_root
   end
-  root :to => 'welcome#index' 
+  root :to => 'static#welcome' 
+
+  ### ADD THIS IN! ###
+  # %w[about privacy license].each do |page|
+  #   get page, controller: "info", action: page
+  # end
+
+
+
 
   # You can have the root of your site routed with "root"
   # root 'questions#index'
