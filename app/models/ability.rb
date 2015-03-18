@@ -13,10 +13,18 @@ class Ability
     can :create, Question
     can :modify, Question, user_id: user.id
 
+    # Abilities for User
+    can :show, User
+
     # Abilities for Answer
     can :create, Answer
     cannot :create, Answer, :question => { :user_id => user.id }
     can :modify, Answer, user_id: user.id
+    can :vote, Answer
+
+    # Abilities for Answer Votes
+    # can :vote, AnswerVote
+    # cannot :create, AnswerVote, :question => { :user_id => user.id }
 
 
   end

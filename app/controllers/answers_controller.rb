@@ -12,6 +12,8 @@ class AnswersController < ApplicationController
     if @answer.save
       redirect_to question_path(@question)
     else
+      @question = Question.find(params[:question_id])
+      @answers = @question.answers.includes(:user, :answer_votes)
       render 'questions/show'
     end
   end
@@ -22,6 +24,18 @@ class AnswersController < ApplicationController
     @answer.destroy
 
     redirect_to question_path(@question)
+  end
+
+  def vote
+
+    @vote = AnswerVote.create(answer_id: params[:id], user_id: current_user.id)
+
+    if @vote.save
+      redirect_to :back, notice: "Thank you for voting."
+    else
+      redirect_to :back, notice: "Your vote could not be saved."
+    end
+
   end
 
   private

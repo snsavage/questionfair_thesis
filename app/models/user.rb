@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   has_many :invitations, :class_name => self.to_s, :as => :invited_by
 
+  has_many :answer_votes
+
   validates :nickname, uniqueness: true
   validates :nickname, presence: true
   validates :nickname, length: { minimum: 2 }

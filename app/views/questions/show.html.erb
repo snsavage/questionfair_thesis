@@ -30,6 +30,10 @@
     <h4>No answers have been provided.</h4>
   <% end %>
 
+  <% if !@vote.nil? %>
+    <%= render partial: "layouts/form_errors", object: @vote %>
+  <% end %>
+
   <% @question.answers.each do |answer| %>
 
     <% if !answer.answer.nil? %>
@@ -39,15 +43,38 @@
           <%= image_tag(gravatar_url(answer.user), 
             size: "48x48", alt: "Gravatar", class: "media-object") %>
         </div>
-
         <div class="media-body">
+          
+
           <h4 class="media-heading"><%= answer.answer %></h4>
-          <h4><small>Answer provided by <%= answer.user.nickname %> 
-            <%= time_ago_in_words(answer.created_at, include_seconds: false) %> ago. </small></h4>
+          
+          <h4><small>Answer provided by <%= answer.user.nickname %> <%= time_ago_in_words(answer.created_at, include_seconds: false) %> ago. </small></h4>
+          <% if answer.answer_votes.any? %>
+            <h4><small>Votes from: 
+              <% answer.voter_list.each do |voter| %>
+                <%= link_to voter[:nickname], user_path(voter[:id]) %>
+              <% end %>
+            </small></h4>
+          <% end %>
+
         </div>
+
+        <div class="media-right text-center media-top">
+          <h4 class="media-heading">Votes</h4>
+          <h4><span class="badge"><%= answer.answer_votes.count %></span></h4>
+          
+          <%= button_to vote_question_answer_path(@question, answer), method: :post, class: "btn btn-default btn-xs" do %>
+            <span class="glyphicon glyphicon-thumbs-up"></span> Vote
+          <% end %>
+
+        </div>
+
       </div>
 
     <% end %>
+
+    <hr />
+
   <% end %>
 
 </div>

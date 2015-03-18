@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    @answers = @question.answers.includes(:user)
+    @answers = @question.answers.includes(:user, :answer_votes)
     @answer = @question.answers.build
   end
 
