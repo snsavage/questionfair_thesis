@@ -65,14 +65,16 @@
         <div class="media-right text-center media-top">
           <h4 class="media-heading">Votes</h4>
           <h4><span class="badge"><%= answer.answer_votes.count %></span></h4>
-
-          <% if voted_on_answer(answer.id) %>
-            <%= button_to unvote_question_answer_path(@question, answer), method: :post, class: "btn btn-default btn-xs" do %>
-              <span class="glyphicon glyphicon-remove"></span> Remove Vote
-            <% end %>
-          <% elsif ( can? :create, @answer ) && !voted_on_question(@question) && !user_has_answered(@answers) %>
-            <%= button_to vote_question_answer_path(@question, answer), method: :post, class: "btn btn-default btn-xs" do %>
-              <span class="glyphicon glyphicon-thumbs-up"></span> Vote 
+          
+          <% if user_signed_in? %>
+            <% if voted_on_answer(answer.id) %>
+              <%= button_to unvote_question_answer_path(@question, answer), method: :post, class: "btn btn-default btn-xs" do %>
+                <span class="glyphicon glyphicon-remove"></span> Remove Vote
+              <% end %>
+            <% elsif ( can? :create, @answer ) && !voted_on_question(@question) && !user_has_answered(@answers) %>
+              <%= button_to vote_question_answer_path(@question, answer), method: :post, class: "btn btn-default btn-xs" do %>
+                <span class="glyphicon glyphicon-thumbs-up"></span> Vote 
+              <% end %>
             <% end %>
           <% end %>
 
