@@ -5,6 +5,9 @@ class AnswersController < ApplicationController
   load_and_authorize_resource :question
   load_and_authorize_resource :answer, through: :question
 
+  def edit
+  end
+
   def create
     @question = Question.find(params[:question_id])
     @answer = @question.answers.build(answer_params)
@@ -12,9 +15,7 @@ class AnswersController < ApplicationController
     if @answer.save
       redirect_to question_path(@question)
     else
-      @question = Question.find(params[:question_id])
-      @answers = @question.answers.includes(:user, :answer_votes)
-      render 'questions/show'
+      render 'edit'
     end
   end
 
@@ -28,7 +29,7 @@ class AnswersController < ApplicationController
 
   def vote
 
-    @vote = AnswerVote.create(answer_id: params[:id], user_id: current_user.id)
+    @vote = AnswerVote.new(answer_id: params[:id], user_id: current_user.id)
 
     if @vote.save
       redirect_to :back, notice: "Thank you for voting."
@@ -36,6 +37,20 @@ class AnswersController < ApplicationController
       redirect_to :back, notice: "Your vote could not be saved."
     end
 
+  end
+
+  def unvote
+    @vote = AnswerVote.where(answer_id: params[:id], user_id: current_user.id)
+    @question = Question.find(params[:question_id])
+
+    if @vote.length == 1
+      @vote[0].destroy
+    else
+      logger.error "Can't delete more than one vote at a time.  AnswersController: Unvote"
+      redirect_to :back, notice: "Your vote could not be removed."
+    end
+
+    redirect_to :back, notice: "You vote has been removed.  If you wish, please vote again or provide an answer."
   end
 
   private

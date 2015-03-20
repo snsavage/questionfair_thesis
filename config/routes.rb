@@ -30,8 +30,8 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   resources :questions do
-    resources :answers, only: [ :create, :destroy ] do
-      member { post :vote }
+    resources :answers, only: [ :edit, :create, :destroy ] do
+      member { post :vote, :unvote }
     end
     collection do
       get 'search'

@@ -49,12 +49,15 @@
           <h4 class="media-heading"><%= answer.answer %></h4>
           
           <h4><small>Answer provided by <%= answer.user.nickname %> <%= time_ago_in_words(answer.created_at, include_seconds: false) %> ago. </small></h4>
+          
           <% if answer.answer_votes.any? %>
-            <h4><small>Votes from: 
-              <% answer.voter_list.each do |voter| %>
-                <%= link_to voter[:nickname], user_path(voter[:id]) %>
-              <% end %>
-            </small></h4>
+            <h4>
+              <small>Votes from: 
+                <% answer.voter_list.each do |voter| %>
+                  <%= link_to voter[:nickname], user_path(voter[:id]) %>
+                <% end %>
+              </small>
+            </h4>
           <% end %>
 
         </div>
@@ -62,14 +65,28 @@
         <div class="media-right text-center media-top">
           <h4 class="media-heading">Votes</h4>
           <h4><span class="badge"><%= answer.answer_votes.count %></span></h4>
-          
-          <%= button_to vote_question_answer_path(@question, answer), method: :post, class: "btn btn-default btn-xs" do %>
-            <span class="glyphicon glyphicon-thumbs-up"></span> Vote
+
+          <% if voted_on_answer(answer.id) %>
+            <%= button_to unvote_question_answer_path(@question, answer), method: :post, class: "btn btn-default btn-xs" do %>
+              <span class="glyphicon glyphicon-remove"></span> Remove Vote
+            <% end %>
+          <% elsif !voted_on_question(@question) && !user_has_answered(@answers) %>
+            <%= button_to vote_question_answer_path(@question, answer), method: :post, class: "btn btn-default btn-xs" do %>
+              <span class="glyphicon glyphicon-thumbs-up"></span> Vote 
+            <% end %>
           <% end %>
 
         </div>
 
       </div>
+
+      <% if ( can? :modify, answer ) %>
+        <div class="btn-group text-right" role="group" aria-label="...">
+            <%= link_to "Edit Answer", edit_question_answer_path(@question, answer), class: "btn btn-default", role: "button" %>
+            <%= link_to "Delete Answer", question_answer_path(@question, answer), data: { confirm: "Are you sure?" },
+              method: :delete, class: "btn btn-default", role: "button" %>
+        </div>
+      <% end %>
 
     <% end %>
 
@@ -102,10 +119,10 @@
       </div>
     </div>
   <% end %>
- 
-  <% if ( can? :create, @answer ) && user_signed_in? %>
 
-      <%= render 'answers/form' %>    
+  <% if ( can? :create, @answer ) && user_signed_in? && !user_has_answered(@answers) && !voted_on_question(@question) %>
+
+      <%= render 'answers/form' %>  
 
   <% elsif !user_signed_in? %>
 

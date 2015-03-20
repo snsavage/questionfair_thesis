@@ -21,6 +21,7 @@ class Ability
     cannot :create, Answer, :question => { :user_id => user.id }
     can :modify, Answer, user_id: user.id
     can :vote, Answer
+    can :unvote, Answer
 
     # Abilities for Answer Votes
     # can :vote, AnswerVote
@@ -29,16 +30,16 @@ class Ability
 
   end
 
-  private
-    def can_create_answer?(params, user)
-      if params[:controller] == ("questions") && params[:action] == "show"
-        Question.find(params[:id]).user_id != user.id
-      elsif params[:controller] == ("answers") && params[:action] == "create"
-        Question.find(params[:question_id]).user_id != user.id
-      else
-        false
-      end
-    end
+  # private
+  #   def can_create_answer?(params, user)
+  #     if params[:controller] == ("questions") && params[:action] == "show"
+  #       Question.find(params[:id]).user_id != user.id
+  #     elsif params[:controller] == ("answers") && params[:action] == "create"
+  #       Question.find(params[:question_id]).user_id != user.id
+  #     else
+  #       false
+  #     end
+  #   end
 
 
 end
