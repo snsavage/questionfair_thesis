@@ -70,7 +70,7 @@
             <%= button_to unvote_question_answer_path(@question, answer), method: :post, class: "btn btn-default btn-xs" do %>
               <span class="glyphicon glyphicon-remove"></span> Remove Vote
             <% end %>
-          <% elsif !voted_on_question(@question) && !user_has_answered(@answers) %>
+          <% elsif ( can? :create, @answer ) && !voted_on_question(@question) && !user_has_answered(@answers) %>
             <%= button_to vote_question_answer_path(@question, answer), method: :post, class: "btn btn-default btn-xs" do %>
               <span class="glyphicon glyphicon-thumbs-up"></span> Vote 
             <% end %>
