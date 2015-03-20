@@ -35,6 +35,7 @@ group :development do
   gem 'faker'
   gem 'quiet_assets'
   gem 'bullet'
+  gem 'letter_opener'
 end
 
 group :test do

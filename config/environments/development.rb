@@ -17,16 +17,17 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   # Change mail delvery to either :smtp, :sendmail, :file, :test
+  config.action_mailer.delivery_method = :letter_opener
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    :port =>           '587',
-    :address =>        'smtp.mandrillapp.com',
-    :user_name =>      ENV['MANDRILL_USERNAME'],
-    :password =>       ENV['MANDRILL_APIKEY_TEST'],
-    :domain =>         'questionfair.com',
-    :authentication => :plain
-  }
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   :port =>           '587',
+  #   :address =>        'smtp.mandrillapp.com',
+  #   :user_name =>      ENV['MANDRILL_USERNAME'],
+  #   :password =>       ENV['MANDRILL_APIKEY_TEST'],
+  #   :domain =>         'questionfair.com',
+  #   :authentication => :plain
+  # }
 
   # Specify what domain to use for mailer URLs
   config.action_mailer.default_url_options = {host: "localhost:3000"}
