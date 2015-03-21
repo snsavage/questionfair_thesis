@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# one:
+#   name: Scott
+#   question: What is the best new restaurant in Lancater PA?
+
+# two:
+#   name: Sara
+#   question: Where is the best place to stay in Boulder CO?
+
+# missing_name:
+#   name: 
+#   question: Is the name missing?
+
+# missing_question:
+#   name: Scott
+#   question: 
+
+# empty_question:
+#   name: Scott
+#   question: "Q"
+
+# empty_name:
+#   name: 
+#   question: Is the name empty?
+
+# long_question:
+#   name: Scott
+#   question: <%= "a" * 501 %>
+
+# long_name:
+#   name: <%= "a" * 31 %>
+#   question: Is this name too long?    
