@@ -15,4 +15,8 @@ class Friendship < ActiveRecord::Base
   scope :find_inverse, ->(user_id, friend_id) { 
     where(user_id: friend_id, friend_id: user_id).first }
 
+  def nicknames
+    User.try(:nickname)
+  end
+
 end

@@ -3,33 +3,18 @@ class FriendshipsController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
 
-
   def update
-    # @friendship = current_user.friendships.find(params[:id])
-    # @friendship_inverse = Friendship.find_inverse(@friendship.user_id, @friendship.friend_id)
-    # if friendship_params[:confirm] == true
-    #   @friendship[:friend_confirmed] = true
-    #   @friendship_inverse[:user_confirmed] = true
-    #   if @friendship.save && @friendship_inverse.save
-    #     redirect_to dashboard_index_path(anchor: "friends"), 
-    #       notice: "Friendship confirmed."
-    #   end
-    #   redirect_to dashboard_index_path(anchor: "friends"), notice: "Friend confirmed." 
-    # else
-    #   redirect_to dashboard_index_path(anchor: "friends"), notice: "Could not confirm friend at this time."
-    # end 
-
     @friendship = current_user.friendships.find(params[:id])
     @friendship_inverse = Friendship.find_inverse(@friendship.user_id, @friendship.friend_id)
     @friendship[:user_confirmed] = true
     @friendship_inverse[:friend_confirmed] = true
+
     if @friendship.save && @friendship_inverse.save
       redirect_to dashboard_index_path(anchor: "friends"), 
         notice: "Friend confirmed."
     else
       redirect_to dashboard_index_path(anchor: "friends"), notice: "Could not confirm friend at this time."
     end      
-
   end
 
   def create
@@ -47,8 +32,6 @@ class FriendshipsController < ApplicationController
       redirect_to dashboard_index_path(anchor: "friends"), 
         alert: "Unable to add this friendship."
     end
-
-
   end
 
   def destroy
@@ -62,10 +45,10 @@ class FriendshipsController < ApplicationController
     end  
   end
 
-  # private
-  #   def friendship_params
-  #     params.require(:friendship).permit(:confirm)
-  #   end
+  private
+    def friendship_params
+      params.permit(:id, :nicknames)
+    end
 
 end
 

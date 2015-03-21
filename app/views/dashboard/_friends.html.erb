@@ -1,6 +1,11 @@
 
 <%= link_to "Find Friends", users_path %>
 
+<%= form_tag users_path, method: :get do %>
+  <%= text_field_tag :search, params[:nicknames], size: 30 %>
+  <%= submit_tag "Search", name: nil %>
+<% end %>
+
 <div class="row">
   <div class="col-md-4">
     <h2>Friends</h2>
