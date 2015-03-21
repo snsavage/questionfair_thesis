@@ -26,6 +26,7 @@ class Ability
 
     # Abilities for Friendship
     can :create, Friendship
+    can :update, Friendship, user_id: user.id
     can :destroy, Friendship, user_id: user.id
 
     # Abilities for Answer Votes
@@ -34,17 +35,5 @@ class Ability
 
 
   end
-
-  # private
-  #   def can_create_answer?(params, user)
-  #     if params[:controller] == ("questions") && params[:action] == "show"
-  #       Question.find(params[:id]).user_id != user.id
-  #     elsif params[:controller] == ("answers") && params[:action] == "create"
-  #       Question.find(params[:question_id]).user_id != user.id
-  #     else
-  #       false
-  #     end
-  #   end
-
 
 end

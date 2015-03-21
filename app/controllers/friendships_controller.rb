@@ -3,20 +3,69 @@ class FriendshipsController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
 
-  def create
-    @friendship = current_user.friendships.build(friend_id: params[:friend_id])
-    if @friendship.save
-      redirect_to dashboard_index_path(anchor: "friends"), notice: "Added friend."
+
+  def update
+    # @friendship = current_user.friendships.find(params[:id])
+    # @friendship_inverse = Friendship.find_inverse(@friendship.user_id, @friendship.friend_id)
+    # if friendship_params[:confirm] == true
+    #   @friendship[:friend_confirmed] = true
+    #   @friendship_inverse[:user_confirmed] = true
+    #   if @friendship.save && @friendship_inverse.save
+    #     redirect_to dashboard_index_path(anchor: "friends"), 
+    #       notice: "Friendship confirmed."
+    #   end
+    #   redirect_to dashboard_index_path(anchor: "friends"), notice: "Friend confirmed." 
+    # else
+    #   redirect_to dashboard_index_path(anchor: "friends"), notice: "Could not confirm friend at this time."
+    # end 
+
+    @friendship = current_user.friendships.find(params[:id])
+    @friendship_inverse = Friendship.find_inverse(@friendship.user_id, @friendship.friend_id)
+    @friendship[:user_confirmed] = true
+    @friendship_inverse[:friend_confirmed] = true
+    if @friendship.save && @friendship_inverse.save
+      redirect_to dashboard_index_path(anchor: "friends"), 
+        notice: "Friend confirmed."
     else
-      redirect_to dashboard_index_path(anchor: "friends"), error: "Unable to add this friendship."
+      redirect_to dashboard_index_path(anchor: "friends"), notice: "Could not confirm friend at this time."
+    end      
+
+  end
+
+  def create
+    @friendship = current_user.friendships.build(friend_id: params[:friend_id], user_confirmed: true)
+    @friend = User.find(params[:friend_id])
+    @friendship_inverse = @friend.friendships.build(friend_id: current_user.id, friend_confirmed: true)
+    
+    if @friendship.user_id == @friendship_inverse.user_id
+      redirect_to dashboard_index_path(anchor: "friends"), 
+        alert: "You cannot friend yourself."
+    elsif @friendship.save && @friendship_inverse.save
+      redirect_to dashboard_index_path(anchor: "friends"), 
+        notice: "Friendship requested.  Waiting for confirmation."
+    else
+      redirect_to dashboard_index_path(anchor: "friends"), 
+        alert: "Unable to add this friendship."
     end
+
+
   end
 
   def destroy
     @friendship = current_user.friendships.find(params[:id])
-    @friendship.destroy
-    redirect_to dashboard_index_path(anchor: "friends"), notice: "Removed friend."
+    @friendship_inverse = Friendship.find_inverse(@friendship.user_id, @friendship.friend_id)
+
+    if @friendship.destroy && @friendship_inverse.destroy
+      redirect_to dashboard_index_path(anchor: "friends"), notice: "Removed friend."
+    else
+      redirect_to dashboard_index_path(anchor: "friends"), alert: "Could not remove friend at this time."
+    end  
   end
+
+  # private
+  #   def friendship_params
+  #     params.require(:friendship).permit(:confirm)
+  #   end
 
 end
 

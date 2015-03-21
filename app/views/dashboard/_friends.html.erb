@@ -1,21 +1,42 @@
-<h1>Friends</h1>
 
-<%= link_to "Find Users", users_path %>
+<%= link_to "Find Friends", users_path %>
 
-<h2>Friends</h2>
-<ul> 
-  <% for friendship in @user.friendships %>
-  <li>
-    <%= friendship.friend.nickname %>
-    (<%= link_to "Remove", friendship_path(friendship), method: :delete %>)
-  </li>
-  <% end %>
-</ul>
+<div class="row">
+  <div class="col-md-4">
+    <h2>Friends</h2>
+    <ul> 
+      <% for friendship in @user.friendships.confirmed %>
+      <li>
+        <%= friendship.friend.nickname %>
+        (<%= link_to "Remove", friendship_path(friendship, confirm: true), method: :delete %>)
+      </li>
+      <% end %>
+    </ul>
+  </div>
 
-<h2>Friended by Users</h2>
-<ul>
-  <% for user in @user.inverse_friends %>
-    <li><%= user.nickname %></li>
-  <% end %>
-</ul>
+  <div class="col-md-4">
+    <h2>Friend Requests</h2>
+    <ul>
+      <% for user in @user.friendships.confirmation_requested %>
+        <li>
+          <%= user.friend.nickname %>
+          (<%= link_to "Confirm", friendship_path(id: user), method: :patch %>)
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="col-md-4">
+    <h2>Unconfirmed Friends</h2>
+    <ul> 
+      <% for friendship in @user.friendships.unconfirmed %>
+      <li>
+        <%= friendship.friend.nickname %>
+        (<%= link_to "Undo Request", friendship_path(friendship), method: :delete %>)
+      </li>
+      <% end %>
+    </ul>
+  </div>
+
+</div>
 

@@ -4,7 +4,7 @@ module ApplicationHelper
   # Code from https://gist.github.com/suryart/7418454
   BOOTSTRAP_FLASH_MSG = {
     success: 'success',
-    error: 'error',
+    error: 'danger',
     alert: 'warning',
     notice: 'info'
   }
