@@ -14,6 +14,7 @@ class Ability
     can :modify, Question, user_id: user.id
 
     # Abilities for User
+    can :index, User
     can :show, User
 
     # Abilities for Answer
@@ -22,6 +23,10 @@ class Ability
     can :modify, Answer, user_id: user.id
     can :vote, Answer
     can :unvote, Answer
+
+    # Abilities for Friendship
+    can :create, Friendship
+    can :destroy, Friendship, user_id: user.id
 
     # Abilities for Answer Votes
     # can :vote, AnswerVote

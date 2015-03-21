@@ -8,6 +8,7 @@ class DashboardController < ApplicationController
     if user_signed_in?
       @questions = current_user.questions.all
       @answers = current_user.answers.includes(:question).all
+      @user = current_user
     else
       render 'questions#index'
     end

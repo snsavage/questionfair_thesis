@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
 
+  devise_for :users
 
   # Source: http://hibbard.eu/authentication-with-devise-and-cancancan-in-rails-4-2/
   authenticated :user do
@@ -15,8 +13,22 @@ Rails.application.routes.draw do
   #   get page, controller: "info", action: page
   # end
 
+  resources :questions do
+    resources :answers, only: [ :edit, :create, :destroy ] do
+      member { post :vote, :unvote }
+    end
+    collection do
+      get 'search'
+    end
+  end
 
+  resources :users, only: [ :index, :show ]
+  resources :dashboard, only: [:index]
 
+  resources 'friendships'
+
+  # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'questions#index'
@@ -29,17 +41,6 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :questions do
-    resources :answers, only: [ :edit, :create, :destroy ] do
-      member { post :vote, :unvote }
-    end
-    collection do
-      get 'search'
-    end
-  end
-
-  resources :users, only: [ :show ]
-  resources :dashboard, only: [:index]
 
   # Example resource route with options:
   #   resources :products do

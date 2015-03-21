@@ -7,10 +7,13 @@ class User < ActiveRecord::Base
 
   has_many :questions
   has_many :answers
-
   has_many :invitations, :class_name => self.to_s, :as => :invited_by
-
   has_many :answer_votes
+
+  has_many :friendships
+  has_many :friends, through: :friendships
+  has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
+  has_many :inverse_friends, through: :inverse_friendships, source: :user
 
   validates :nickname, uniqueness: true
   validates :nickname, presence: true
