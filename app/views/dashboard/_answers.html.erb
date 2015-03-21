@@ -1,0 +1,57 @@
+<div class="col-md-6">
+  <h4>Answers you have provided.</h4>
+  <hr />
+
+  <% if @questions.count == 0 %>
+    <div class="col-md-12 text-center">
+      <h4>You haven't asked any questions.</h4>
+      <h4>
+        <small>
+          <%= link_to "Click Here", questions_path %> to find some questions to answer.
+        </small>
+      </h4>
+    </div>
+
+  <% elsif %>    
+
+    <% @answers.each do |answer| %>
+      <div class=" col-sm-12">
+        <div class="row">
+          <div class="col-sm-12">
+            <h4 class="text-left">
+              <%= link_to answer.question.question, question_path(answer.question) %>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <h4>Your Answer:</h4>
+          </div>
+          <div class="col-sm-8">
+            <h4 class="text-left">
+              <small><%= answer.answer %></small>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-9">
+            <h4>
+              <small>
+                Answered on 
+                <%= answer.created_at.strftime("%A, %B %d, %Y") %> at 
+                <%= answer.created_at.strftime("%I:%M %p") %> EST.
+              </small>
+            </h4>
+          </div>
+          <div class="col-sm-3">
+            <h5 class="text-right"><span class="label label-primary"><%= answer.question.category %></span></h5>
+          </div>
+        </div>
+        <hr />
+      </div> 
+    <% end %>
+  <% end %>
+
+</div>
+
+

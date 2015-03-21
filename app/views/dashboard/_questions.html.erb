@@ -1,0 +1,44 @@
+<div class="col-md-6">
+  <h4>Questions you have asked.</h4>
+  <hr />
+
+  <% if @questions.count == 0 %>
+  <div class="col-md-12 text-center">
+    <h4>You haven't asked any questions.</h4>
+    <h4><small><%= link_to "Click Here", new_question_path %> to ask a new question.</small></h4>
+  </div>
+
+  <% elsif %>
+
+    <% @questions.each do |question| %>
+
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-8">
+          <h4><%= link_to question.question, question_path(question) %></h4>
+        </div>
+        <div class="col-sm-4">
+          <h5 class="text-right">
+            Answers <span class="badge"><%= question.answers.count %></span>
+          </h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-8">
+          <h4>
+            <small>Asked on 
+              <%= question.created_at.strftime("%A, %B %d, %Y") %> at 
+              <%= question.created_at.strftime("%I:%M %p") %> EST.
+            </small>
+          </h4>
+        </div>
+        <div class="col-sm-4">
+          <h5 class="text-right"><span class="label label-primary"><%= question.category %></span></h5>
+        </div>
+      </div>
+      <hr />
+    </div>
+    <% end %>
+  <% end %>
+
+</div>
