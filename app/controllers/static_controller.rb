@@ -14,7 +14,11 @@ class StaticController < ApplicationController
     if current_user
       @contact_message.name = current_user.nickname
       @contact_message.email = current_user.email
-      @contact_message.subject = "Contacting QuestionFair.com"
+      if params[:from] == "Category Suggestion"
+        @contact_message.subject = "Category Suggestion for QuestionFair.com"
+      else
+        @contact_message.subject = "Contacting QuestionFair.com"
+      end
     end
   end
 
