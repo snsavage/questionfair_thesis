@@ -4,14 +4,13 @@ Rails.application.routes.draw do
 
   # Source: http://hibbard.eu/authentication-with-devise-and-cancancan-in-rails-4-2/
   authenticated :user do
-    root :to => 'questions#index', as: :authenticated_root
+    root :to => 'dashboard#index', as: :authenticated_root
   end
   root :to => 'static#welcome' 
 
-  ### ADD THIS IN! ###
-  # %w[about privacy license].each do |page|
-  #   get page, controller: "info", action: page
-  # end
+  %w[welcome about contact privacy terms].each do |page|
+    get page, controller: "static", action: page
+  end
 
   resources :questions do
     resources :answers, only: [ :edit, :create, :destroy ] do

@@ -4,9 +4,18 @@ class StaticController < ApplicationController
   skip_authorization_check
 
   def welcome
-    
+  end
 
+  def about
+  end
 
+  def contact    
+  end
+
+  def privacy
+  end
+
+  def terms
   end
 
 end
