@@ -3,7 +3,7 @@ class Friendship < ActiveRecord::Base
   belongs_to :user
   belongs_to :friend, class_name: "User"
 
-  validates :user_id, :friend_id, uniqueness: true
+  validates :user_id, uniqueness: { scope: :friend_id }
 
   scope :unconfirmed, -> { 
     where(user_confirmed: true, friend_confirmed: false) }
