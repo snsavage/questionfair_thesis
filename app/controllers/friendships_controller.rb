@@ -18,11 +18,9 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-
     if User.pluck(:nickname).include?(params[:friendship][:nicknames])
 
       @nickname = User.find_by(nickname: params[:friendship][:nicknames])
-
       @friendship = current_user.friendships.build(friend_id: @nickname.id, user_confirmed: true)
       @friend = User.find(@nickname.id)
       @friendship_inverse = @friend.friendships.build(friend_id: current_user.id, friend_confirmed: true)
@@ -44,7 +42,6 @@ class FriendshipsController < ApplicationController
         alert: "Please provide a valid user."
 
     end
-
   end
 
   def destroy
