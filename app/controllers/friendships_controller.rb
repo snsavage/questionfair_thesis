@@ -18,20 +18,33 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    @friendship = current_user.friendships.build(friend_id: params[:friend_id], user_confirmed: true)
-    @friend = User.find(params[:friend_id])
-    @friendship_inverse = @friend.friendships.build(friend_id: current_user.id, friend_confirmed: true)
-    
-    if @friendship.user_id == @friendship_inverse.user_id
-      redirect_to dashboard_index_path(anchor: "friends"), 
-        alert: "You cannot friend yourself."
-    elsif @friendship.save && @friendship_inverse.save
-      redirect_to dashboard_index_path(anchor: "friends"), 
-        notice: "Friendship requested.  Waiting for confirmation."
+
+    if User.pluck(:nickname).include?(params[:friendship][:nicknames])
+
+      @nickname = User.find_by(nickname: params[:friendship][:nicknames])
+
+      @friendship = current_user.friendships.build(friend_id: @nickname.id, user_confirmed: true)
+      @friend = User.find(@nickname.id)
+      @friendship_inverse = @friend.friendships.build(friend_id: current_user.id, friend_confirmed: true)
+      
+      if @friendship.user_id == @friendship_inverse.user_id
+        redirect_to dashboard_index_path(anchor: "friends"), 
+          alert: "You cannot friend yourself."
+      elsif @friendship.save && @friendship_inverse.save
+        redirect_to dashboard_index_path(anchor: "friends"), 
+          notice: "Friendship requested.  Waiting for confirmation."
+      else
+        redirect_to dashboard_index_path(anchor: "friends"), 
+          alert: "Unable to add this friendship."
+      end
+
     else
+
       redirect_to dashboard_index_path(anchor: "friends"), 
-        alert: "Unable to add this friendship."
+        alert: "Please provide a valid user."
+
     end
+
   end
 
   def destroy

@@ -1,16 +1,8 @@
-
-<%= link_to "Find Friends", users_path %>
-
-<%= form_tag users_path, method: :get do %>
-  <%= text_field_tag :search, params[:nicknames], size: 30 %>
-  <%= submit_tag "Search", name: nil %>
-<% end %>
-
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-6">
     <h2>Friends</h2>
     <ul> 
-      <% for friendship in @user.friendships.confirmed %>
+      <% for friendship in @user.friendships.includes(:friend).confirmed %>
       <li>
         <%= friendship.friend.nickname %>
         (<%= link_to "Remove", friendship_path(friendship, confirm: true), method: :delete %>)
@@ -19,7 +11,19 @@
     </ul>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-6">
+    
+    <h2>Search for Friends</h2>
+    <%= form_for @friendship,
+      html: { class: "form-inline" } do |f| %>
+      <div class="form-group">
+        <%= f.text_field :nicknames, id: "user_nicknames", 
+          data: {autocomplete_source: users_path },  class: "form-control", placeholder: "Search for Friends" %>
+      </div>
+      <%= f.submit "Add Friend", class: "btn btn-default" %>
+    <% end %>
+
+
     <h2>Friend Requests</h2>
     <ul>
       <% for user in @user.friendships.confirmation_requested %>
@@ -29,12 +33,10 @@
         </li>
       <% end %>
     </ul>
-  </div>
 
-  <div class="col-md-4">
     <h2>Unconfirmed Friends</h2>
     <ul> 
-      <% for friendship in @user.friendships.unconfirmed %>
+      <% for friendship in @user.friendships.includes(:friend).unconfirmed %>
       <li>
         <%= friendship.friend.nickname %>
         (<%= link_to "Undo Request", friendship_path(friendship), method: :delete %>)

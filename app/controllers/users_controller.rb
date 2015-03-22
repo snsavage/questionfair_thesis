@@ -4,14 +4,9 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    # @users = User.all
-
-    @users = User.order(:nickname).where("nickname LIKE ?", params[:search])
-
-    # render json: @users.map(&:nickname)
-
+    @nicknames = User.where("nickname LIKE ?", "%#{params[:term]}%")
+    render json: @nicknames.map(&:nickname)
   end
-
 
   def show
     @user = User.find(params[:id])

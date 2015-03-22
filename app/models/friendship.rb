@@ -16,7 +16,7 @@ class Friendship < ActiveRecord::Base
     where(user_id: friend_id, friend_id: user_id).first }
 
   def nicknames
-    User.try(:nickname)
+    self.user.nickname.try(:nickname)
   end
 
 end
