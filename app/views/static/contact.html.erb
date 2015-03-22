@@ -1,1 +1,77 @@
-<h1>Contact</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Contact Us</h3>
+  </div>
+
+  <div class="panel-body">
+    <div class="col-md-offset-2 col-sm-7">
+      <p>Please contact us with feedback, suggestions, 
+        and questions about the site.  Thank you!</p>
+    </div>
+
+    <div class="col-md-offset-1 col-md-10">
+      <%= render partial: "layouts/form_errors", object: @contact_message %>
+    </div>
+
+    <%= form_for @contact_message, url: contact_messages_path, 
+      method: :post, html: { class: "form-horizontal" } do |f| %>
+
+      <div class="form-group special_email_field">
+        <%= label_tag :email, nil, class: "control-label col-sm-2" %>
+        <div class="col-sm-7">
+          <%= text_field_tag :email, "", :autocomplete => "off",
+            class: "form-control" %>
+          <span class="help-block">
+            (Do not fill.)
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :name, class: "control-label col-sm-2" %>
+        <div class="col-sm-7">
+          <%= f.text_field :name, class: "form-control" %>
+          <span class="help-block">
+            (Your name or QuestionFair.com nickname.)
+          </span>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, class: "control-label col-sm-2" %>
+        <div class="col-sm-7">
+          <%= f.text_field :email, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :subject, class: "control-label col-sm-2" %>
+        <div class="col-sm-7">
+          <%= f.text_field :subject, class: "form-control", readonly: true %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :message, class: "control-label col-sm-2" %>
+        <div class="col-sm-7">
+          <%= f.text_area :content, class: "form-control",
+            :rows => 14, :cols => 50  %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-7">
+          <%= f.submit "Contact", class: "btn btn-primary" %> 
+        </div>
+      </div>
+    
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+
