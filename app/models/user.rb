@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
   has_many :inverse_friends, through: :inverse_friendships, source: :user
 
-  validates :nickname, uniqueness: true
+  validates :nickname, uniqueness: { case_sensitive: false }
   validates :nickname, presence: true
   validates :nickname, length: { minimum: 2 }
   validates :nickname, length: { maximum: 15 }
