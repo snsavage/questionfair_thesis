@@ -36,6 +36,10 @@ class Question < ActiveRecord::Base
     category_list.include?(category) ? true : false
   end
 
+  def confirmed?
+    answers.where(confirmed: true).exists?
+  end
+
   scope :search, -> search { 
     # where("question ILIKE ? OR category ILIKE ?", "%#{search}%", "%#{search}%")
     where("question @@ ? OR category @@ ?", search, search)

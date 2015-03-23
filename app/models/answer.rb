@@ -20,4 +20,5 @@ class Answer < ActiveRecord::Base
     errors.add :user_id, "cannot answer a question more than once." if Question.find(question_id).answers.find_by(user_id: user_id).present?
   end
 
+
 end
