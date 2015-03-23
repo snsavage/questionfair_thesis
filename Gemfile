@@ -15,6 +15,8 @@ gem 'rails_12factor', group: :production
 
 gem 'devise'
 gem 'devise_invitable', '~> 1.3.4'
+# gem 'devise_campaignable'
+
 gem 'cancancan', '~> 1.10'
 
 gem 'will_paginate', '~> 3.0.6'
