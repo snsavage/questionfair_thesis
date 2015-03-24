@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   resources :questions do
     resources :answers, only: [ :edit, :create, :destroy ] do
-      member { post :vote, :unvote }
+      member { post :vote, :unvote, :best }
     end
     collection do
       get 'search'

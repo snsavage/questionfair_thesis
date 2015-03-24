@@ -23,6 +23,8 @@ class Ability
     can :modify, Answer, user_id: user.id
     can :vote, Answer
     can :unvote, Answer
+    can :best, Answer, question: { user_id: user.id }
+    # cannot :modify, Answer, question.has_best_answer? 
 
     # Abilities for Friendship
     can :create, Friendship

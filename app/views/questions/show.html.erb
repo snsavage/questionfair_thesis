@@ -19,11 +19,13 @@
           <%= @question.category %>
         </span>
       </h5>
-      <h5 class="text-right">
-        <span class="label label-primary">
-          <%= @question.confirmed? %>
-        </span>
-      </h5>
+      <% if @question.has_best_answer? %>
+        <h5 class="text-right">
+          <span class="label label-primary">
+            <%= "Best Answer Selected" %>
+          </span>
+        </h5>
+      <% end %>
     </div>
   </div>
   
@@ -71,27 +73,47 @@
           <h4 class="media-heading">Votes</h4>
           <h4><span class="badge"><%= answer.answer_votes.count %></span></h4>
           
-          <% if user_signed_in? %>
-            <% if voted_on_answer(answer.id) %>
-              <%= button_to unvote_question_answer_path(@question, answer), method: :post, class: "btn btn-default btn-xs" do %>
-                <span class="glyphicon glyphicon-remove"></span> Remove Vote
-              <% end %>
-            <% elsif ( can? :create, @answer ) && !voted_on_question(@question) && !user_has_answered(@answers) %>
-              <%= button_to vote_question_answer_path(@question, answer), method: :post, class: "btn btn-default btn-xs" do %>
-                <span class="glyphicon glyphicon-thumbs-up"></span> Vote 
+          <% if !@question.has_best_answer? %>
+            <% if user_signed_in? %>
+              <% if voted_on_answer(answer.id) %>
+                <%= button_to unvote_question_answer_path(@question, answer), method: :post, class: "btn btn-default btn-xs" do %>
+                  <span class="glyphicon glyphicon-remove"></span> Remove Vote
+                <% end %>
+              <% elsif ( can? :create, @answer ) && !voted_on_question(@question) && !user_has_answered(@answers) %>
+                <%= button_to vote_question_answer_path(@question, answer), method: :post, class: "btn btn-default btn-xs" do %>
+                  <span class="glyphicon glyphicon-thumbs-up"></span> Vote 
+                <% end %>
               <% end %>
             <% end %>
+          <% end %>
+
+          <% if answer.best_answer? %>
+            <h5 class="text-right">
+              <span class="label label-primary">
+                <%= "Best Answer!" %>
+              </span>
+            </h5>
           <% end %>
 
         </div>
 
       </div>
+      
+      <% if !@question.has_best_answer? %>
+        <% if ( can? :modify, answer ) %>
+          <div class="btn-group text-right" role="group" aria-label="...">
+              <%= link_to "Edit Answer", edit_question_answer_path(@question, answer), class: "btn btn-default", role: "button" %>
+              <%= link_to "Delete Answer", question_answer_path(@question, answer), data: { confirm: "Are you sure?" },
+                method: :delete, class: "btn btn-default", role: "button" %>
 
-      <% if ( can? :modify, answer ) %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% if !@question.has_best_answer? && (can? :modify, @question) %>
         <div class="btn-group text-right" role="group" aria-label="...">
-            <%= link_to "Edit Answer", edit_question_answer_path(@question, answer), class: "btn btn-default", role: "button" %>
-            <%= link_to "Delete Answer", question_answer_path(@question, answer), data: { confirm: "Are you sure?" },
-              method: :delete, class: "btn btn-default", role: "button" %>
+            <%= link_to "Select As Best Answer", best_question_answer_path(@question, answer), data: { confirm: "Are you sure?  This selection is final." },
+              method: :post, class: "btn btn-default", role: "button" %>
         </div>
       <% end %>
 
@@ -107,44 +129,47 @@
 
 <div class="col-sm-3">
 
-  <% if can? :modify, @question %>
-    <div class="row">    
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Question Controls</h3>
-        </div>
-        <div class="panel-body">
-          <p>
-            <%= current_user.nickname.capitalize %>, would you like to edit or remove this question?
-          </p>
-          <ul class="list">
-            <li><%= link_to 'Edit Question', edit_question_path(@question) %></li>
-            <li><%= link_to 'Delete Question', question_path(@question), 
-              data: { confirm: "Are you sure?" }, method: :delete %></li>
-          </ul>
+  <% if !@question.has_best_answer? %>
+    <% if can? :modify, @question %>
+      <div class="row">    
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Question Controls</h3>
+          </div>
+          <div class="panel-body">
+            <p>
+              <%= current_user.nickname.capitalize %>, would you like to edit or remove this question?
+            </p>
+            <ul class="list">
+              <li><%= link_to 'Edit Question', edit_question_path(@question) %></li>
+              <li><%= link_to 'Delete Question', question_path(@question), 
+                data: { confirm: "Are you sure?" }, method: :delete %></li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 
-  <% if ( can? :create, @answer ) && user_signed_in? && !user_has_answered(@answers) && !voted_on_question(@question) %>
+  <% if !@question.has_best_answer? %>
+    <% if ( can? :create, @answer ) && user_signed_in? && !user_has_answered(@answers) && !voted_on_question(@question) %>
 
-      <%= render 'answers/form' %>  
+        <%= render 'answers/form' %>  
 
-  <% elsif !user_signed_in? %>
+    <% elsif !user_signed_in? %>
 
-    <div class="row"> 
-      <div class="text-center">
-        <h4>
-          <small>
-            <%= link_to "Sign up", new_user_registration_path %> or 
-            <%= link_to "Login", new_user_session_path %> 
-            to answer this question.
-          </small>
-        </h4>
+      <div class="row"> 
+        <div class="text-center">
+          <h4>
+            <small>
+              <%= link_to "Sign up", new_user_registration_path %> or 
+              <%= link_to "Login", new_user_session_path %> 
+              to answer this question.
+            </small>
+          </h4>
+        </div>
       </div>
-    </div>
-
+    <% end %>
   <% end %>
 
 </div>

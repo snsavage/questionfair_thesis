@@ -53,6 +53,18 @@ class AnswersController < ApplicationController
     redirect_to :back, notice: "You vote has been removed.  If you wish, please vote again or provide an answer."
   end
 
+  def best
+    @question = Question.find(params[:question_id])
+    @answer = Answer.find(params[:id])
+    @answer.best = true
+    if @answer.save
+      redirect_to :back, notice: "Thank you for selecting a best answer."
+    else
+      redirect_to :back, notice: "Your selection could not be saved."
+    end
+
+  end
+
   private
     def answer_params
       params.require(:answer).permit(:answer)
