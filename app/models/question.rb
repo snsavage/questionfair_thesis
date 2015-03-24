@@ -36,8 +36,8 @@ class Question < ActiveRecord::Base
     category_list.include?(category) ? true : false
   end
 
-  def confirmed?
-    answers.where(confirmed: true).exists?
+  def has_best_answer?
+    answers.where(best: true).exists?
   end
 
   scope :search, -> search { 

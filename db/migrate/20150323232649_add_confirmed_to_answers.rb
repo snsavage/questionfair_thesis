@@ -1,18 +1,19 @@
 class AddConfirmedToAnswers < ActiveRecord::Migration
   def up
-    add_column :answers, :confirmed, :boolean, default: false
+    
+    add_column :answers, :best, :boolean, default: false
 
     answers = Answer.all
     for answer in answers
-      if answer.confirmed.nil?
-        answer.confirmed == false
+      if answer.best.nil?
+        answer.best == false
       end
     end
 
   end
 
   def down
-    remove_column :answers, :confirmed
+    remove_column :answers, :best
   end
 
 
