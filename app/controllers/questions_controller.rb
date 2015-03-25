@@ -21,6 +21,8 @@ class QuestionsController < ApplicationController
 
     if params[:location].present?
       @location = Question.get_stored_location(params[:location])
+    else
+      @location = params[:location]
     end
 
     if !params[:distance].present?
@@ -33,10 +35,10 @@ class QuestionsController < ApplicationController
 
     if Question.category_in_categories?(params[:category])
       @category = params[:category]
-      @questions = Question.includes(:user).by_location(params[:location], @distance).by_category(@category).page(params[:page]).order('created_at DESC').per_page(20)
+      @questions = Question.includes(:user).by_location(@location, @distance).by_category(@category).page(params[:page]).order('created_at DESC').per_page(20)
     else
       @category = "All"
-      @questions = Question.includes(:user).by_location(params[:location], @distance).page(params[:page]).order('created_at DESC').per_page(20)
+      @questions = Question.includes(:user).by_location(@location, @distance).page(params[:page]).order('created_at DESC').per_page(20)
     end
 
   end
