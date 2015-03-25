@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @nicknames = User.where("nickname ILIKE ?", "%#{params[:term]}%")
+    @nicknames = User.select(:nickname).where("nickname ILIKE ?", "%#{params[:term]}%").order(:nickname)
     render json: @nicknames.map(&:nickname)
   end
 

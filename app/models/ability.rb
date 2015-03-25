@@ -9,6 +9,7 @@ class Ability
 
     # Abilities for Question
     can :search, Question
+    can :geo_search, Question
     can :read, Question
     can :create, Question
     can :modify, Question, user_id: user.id

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       member { post :vote, :unvote, :best }
     end
     collection do
-      get 'search'
+      get 'search', 'geo_search'
     end
   end
 

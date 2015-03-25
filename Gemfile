@@ -29,6 +29,8 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
 
+gem 'geocoder'
+
 gem 'google-analytics-rails'
 gem 'newrelic_rpm'
 

@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
 
-  before_filter :authenticate_user!, except: [:index, :show, :search]
+  before_filter :authenticate_user!, except: [:index, :show, :search, :geo_search]
 
   load_and_authorize_resource :question
 
@@ -10,14 +10,33 @@ class QuestionsController < ApplicationController
 
   end
 
+  def geo_search
+
+    @locations = Question.select(:city_state).where("city_state ILIKE ?", "%#{params[:term]}%").group(:city_state)
+    render json: @locations.map(&:city_state)
+
+  end
+
   def index
 
-    if Question::category_in_categories?(params[:category])
+    if params[:location].present?
+      @location = Question.get_stored_location(params[:location])
+    end
+
+    if !params[:distance].present?
+      @distance = 10
+    elsif Question.distances.map { |distance| distance[0] == params[:distance].to_i }
+      @distance = params[:distance].to_i
+    else
+      @distance = 10
+    end
+
+    if Question.category_in_categories?(params[:category])
       @category = params[:category]
-      @questions = Question.includes(:user).by_category(@category).page(params[:page]).order('created_at DESC').per_page(20)
+      @questions = Question.includes(:user).by_location(params[:location], @distance).by_category(@category).page(params[:page]).order('created_at DESC').per_page(20)
     else
       @category = "All"
-      @questions = Question.includes(:user).page(params[:page]).order('created_at DESC').per_page(20)
+      @questions = Question.includes(:user).by_location(params[:location], @distance).page(params[:page]).order('created_at DESC').per_page(20)
     end
 
   end
@@ -64,7 +83,7 @@ class QuestionsController < ApplicationController
 
   private
     def question_params
-      params.require(:question).permit(:question, :category)
+      params.require(:question).permit(:question, :category, :address)
     end
 
 end

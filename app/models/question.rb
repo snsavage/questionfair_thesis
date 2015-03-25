@@ -2,6 +2,25 @@ class Question < ActiveRecord::Base
 
   include PgSearch
 
+  geocoded_by :address
+
+  geocoded_by :address do |obj, results|
+    if geo = results.first
+      obj.city = geo.city
+      obj.state = geo.state_code
+      obj.country = geo.country_code
+      obj.latitude = geo.latitude
+      obj.longitude = geo.longitude
+      if obj.city.present? && obj.state.present? && obj.country.present?
+        obj.city_state = "#{geo.city}, #{geo.state_code}, #{geo.country_code}"
+      end
+    end
+  end
+
+  after_validation :geocode, if: ->(obj){obj.address.present? and obj.address_changed?}
+
+  # after_validation :geocode
+
   belongs_to :user, touch: true
   has_many :answers 
   has_many :answer_votes, through: :answers
@@ -23,6 +42,31 @@ class Question < ActiveRecord::Base
       all
     end
   }
+
+  scope :by_location, -> location, distance {
+    if location.present?
+      near(location, distance)
+    else
+      all
+    end
+  }
+
+  def create_address
+    "#{city}, #{state}, #{country}"
+  end
+
+  def has_address?
+    !city.nil? && !state.nil? && !country.nil?
+  end
+
+  def self.distances
+    [[1, 1], [5, 5], [10, 10], [25, 25], [50, 50], [100, 100]]
+  end 
+
+  def self.get_stored_location(location)
+    location = Question.select(:latitude, :longitude).where(city_state: location).first
+    [location.latitude, location.longitude]
+  end
 
   def self.category_list
     CATEGORIES
@@ -46,7 +90,7 @@ class Question < ActiveRecord::Base
   }
 
   pg_search_scope :search_all, 
-    against: [:question, :category], 
+    against: [:question, :category, :city, :state, :country], 
     associated_against: { answers: :answer },
     using: { tsearch: { any_word: true } }
     #using: [:tsearch, :trigram, :dmetaphone]

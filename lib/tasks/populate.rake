@@ -11,10 +11,11 @@ namespace :db do
     # Create test user accounts
     25.times do |a|
       password = "password"
-      test_user = User.create!( :nickname => Faker::Internet.user_name[0,12],
+      username = Faker::Internet.user_name[0,12]
+      test_user = User.create!( :nickname => username,
                                 :first_name => Faker::Name.first_name,
                                 :last_name => Faker::Name.last_name,
-                                :email => Faker::Internet.email,
+                                :email => "#{username}@questionfair.com",
                                 :password => password,
                                 :password_confirmation => password,
                                 :time_zone => 'Eastern Time (US & Canada)')    
