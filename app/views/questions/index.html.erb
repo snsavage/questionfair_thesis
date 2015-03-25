@@ -79,13 +79,12 @@
           </div>
           <div class="col-sm-4">
             <h5 class="text-right">
-              <span class="label label-info"><%= link_to question.category, questions_path(category: question.category) %></span>
+              <%= link_to question.category, questions_path(category: question.category), class: "label label-info" %>
             </h5>
             <% if question.has_address? %>
               <h5 class="text-right">
-                <span class="label label-success">
-                  <%= question.create_address %>
-                </span>
+                <%= link_to question.create_address, questions_path(location: question.create_address), 
+                  class: "label label-success" %>
               </h5>
             <% end %>
           </div>
