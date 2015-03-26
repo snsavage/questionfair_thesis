@@ -36,6 +36,7 @@ gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'dotenv-rails', require: 'dotenv/rails-now'
+  gem 'rack-mini-profiler'
 end
 
 group :development do
