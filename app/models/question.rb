@@ -2,8 +2,6 @@ class Question < ActiveRecord::Base
 
   include PgSearch
 
-  geocoded_by :address
-
   geocoded_by :address do |obj, results|
     if geo = results.first
       obj.city = geo.city
@@ -65,7 +63,6 @@ class Question < ActiveRecord::Base
 
   def self.get_stored_location(location)
     location = Question.select(:latitude, :longitude).where(city_state: location).first
-    [location.latitude, location.longitude]
   end
 
   def self.category_list
