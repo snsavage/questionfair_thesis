@@ -6,7 +6,7 @@ class DashboardController < ApplicationController
   def index
 
     if user_signed_in?
-      @questions = current_user.questions.all
+      @questions = current_user.questions.all.order(created_at: :desc)
       @answers = current_user.answers.includes(:question).all
       @user = current_user
       @friendship = current_user.friendships.build

@@ -21,7 +21,7 @@ class QuestionsController < ApplicationController
 
     if params[:location].present?
       @location = Question.get_stored_location(params[:location])
-      @location = @location.nil? ? params[:location] : [location.latitude, location.longitude]
+      @location = @location.nil? ? params[:location] : [@location.latitude, @location.longitude]
     else
       @location = params[:location]
     end

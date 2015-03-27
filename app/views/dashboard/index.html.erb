@@ -1,42 +1,41 @@
 <div class="col-sm-12">
-  <div class="row">
-    <h2>Dashboard</h2>
-    <hr />
 
-    <div role="tabpanel">
+    <div class="row">
+      <div role="tabpanel">
 
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs nav-justified" role="tablist">
-        <li role="presentation" class="active"><a href="#activities" aria-controls="activities" role="tab" data-toggle="tab">Recent Activity</a></li>
-        <li role="presentation"><a href="#points" aria-controls="points" role="tab" data-toggle="tab">Your Points</a></li>
-        <li role="presentation"><a href="#questions" aria-controls="questions" role="tab" data-toggle="tab">Your Questions</a></li>
-        <li role="presentation"><a href="#answers" aria-controls="answers" role="tab" data-toggle="tab">Your Answers</a></li>
-        <li role="presentation"><a href="#friends" aria-controls="friends" role="tab" data-toggle="tab">Connect with Friends</a></li>
-      </ul>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+          <li role="presentation" class="active"><a href="#activities" aria-controls="activities" role="tab" data-toggle="tab">Recent Activity</a></li>
+          <li role="presentation"><a href="#points" aria-controls="points" role="tab" data-toggle="tab">Your Points</a></li>
+          <li role="presentation"><a href="#questions" aria-controls="questions" role="tab" data-toggle="tab">Your Questions</a></li>
+          <li role="presentation"><a href="#answers" aria-controls="answers" role="tab" data-toggle="tab">Your Answers</a></li>
+          <li role="presentation"><a href="#friends" aria-controls="friends" role="tab" data-toggle="tab">Connect with Friends</a></li>
+        </ul>
 
-      <!-- Tab panes -->
-      <div class="tab-content">
+        <!-- Tab panes -->
+        <div class="tab-content">
 
-        <div role="tabpanel" class="tab-pane active" id="activities">
-          <%= render 'activity_feed' %>
+          <div role="tabpanel" class="tab-pane active" id="activities">
+            <%= render 'activity_feed' %>
+          </div>
+
+          <div role="tabpanel" class="tab-pane" id="points">
+            <%= render 'points' %>
+          </div>
+
+          <div role="tabpanel" class="tab-pane" id="questions">
+            <%= render 'questions' %>
+          </div>
+
+          <div role="tabpanel" class="tab-pane" id="answers">
+            <%= render 'answers' %>
+          </div>
+
+          <div role="tabpanel" class="tab-pane" id="friends">
+            <%= render 'friends' %>
+          </div>
+
         </div>
-
-        <div role="tabpanel" class="tab-pane" id="points">
-          <%= render 'points' %>
-        </div>
-
-        <div role="tabpanel" class="tab-pane" id="questions">
-          <%= render 'questions' %>
-        </div>
-
-        <div role="tabpanel" class="tab-pane" id="answers">
-          <%= render 'answers' %>
-        </div>
-
-        <div role="tabpanel" class="tab-pane" id="friends">
-          <%= render 'friends' %>
-        </div>
-
       </div>
     </div>    
   </div>
