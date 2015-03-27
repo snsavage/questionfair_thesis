@@ -3,9 +3,11 @@ class DashboardController < ApplicationController
   before_filter :authenticate_user!
   skip_authorization_check
 
-  add_breadcrumb "Dashboard", :root_path
+  add_breadcrumb "Home", :root_path
 
   def index
+
+    add_breadcrumb "Dashboard", :dashboard_index_path
 
     if user_signed_in?
       @questions = current_user.questions.all.order(created_at: :desc)

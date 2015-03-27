@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   devise_for :users
 
   # Source: http://hibbard.eu/authentication-with-devise-and-cancancan-in-rails-4-2/
-  authenticated :user do
-    root :to => 'dashboard#index', as: :authenticated_root
-  end
+  # authenticated :user do
+  #   root :to => 'dashboard#index', as: :authenticated_root
+  # end
   root :to => 'static#welcome' 
 
   %w[welcome about contact privacy terms].each do |page|

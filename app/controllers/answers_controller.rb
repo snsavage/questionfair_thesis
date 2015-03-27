@@ -7,7 +7,11 @@ class AnswersController < ApplicationController
 
   add_breadcrumb "Home", :root_path
 
+
   def edit
+    add_breadcrumb "Browse", questions_path
+    add_breadcrumb "View Question", question_path(id: params[:question_id])
+    add_breadcrumb "Edit Answer"
   end
 
   def create

@@ -54,7 +54,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
-
+    add_breadcrumb "Browse", :questions_path
     add_breadcrumb "View Question", :question_path
 
     @question = Question.find(params[:id])
@@ -63,15 +63,18 @@ class QuestionsController < ApplicationController
   end
 
   def new
+    add_breadcrumb "Ask Question"
     @question = Question.new
   end
 
   def edit
     @question = Question.find(params[:id])
+    add_breadcrumb "Browse", :questions_path
+    add_breadcrumb "View Quesiton", question_path(@question)
+    add_breadcrumb "Edit Question"
   end
 
   def create
-
     @question = Question.new(question_params)
     @question.user_id = current_user.id
     if @question.save

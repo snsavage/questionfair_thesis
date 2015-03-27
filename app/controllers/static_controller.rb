@@ -3,10 +3,10 @@ class StaticController < ApplicationController
   # before_filter :authenticate_user!
   skip_authorization_check
 
-  add_breadcrumb "Home", :root_path
+  add_breadcrumb "Home", :root_path, only: [:about, :contact, :privacy, :terms]
 
   def welcome
-    add_breadcrumb "Welcome", :welcome_path
+
   end
 
   def about
