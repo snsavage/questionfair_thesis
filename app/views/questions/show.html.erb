@@ -4,7 +4,7 @@
       <h4><%= @question.question %></h4>
     </div>
     <div class="col-sm-4">
-      <h5 class="text-right">Answers <span class="badge"><%= @question.answers.size %></spam></h5>
+      <h5 class="text-right">Answers <span class="badge"><%= @question.answers.count %></spam></h5>
     </div>
   </div>
   <div class="row">
@@ -15,13 +15,17 @@
     </div>
     <div class="col-sm-4">
       <h5 class="text-right">
-        <span class="label label-primary">
-          <%= @question.category %>
-        </span>
+        <%= link_to @question.category, questions_path(category: @question.category), class: "label label-info" %>
       </h5>
+      <% if @question.has_address? %>
+        <h5 class="text-right">
+          <%= link_to @question.create_address, questions_path(location: @question.create_address), 
+            class: "label label-success" %>
+        </h5>
+      <% end %>
       <% if @question.has_best_answer? %>
         <h5 class="text-right">
-          <span class="label label-primary">
+          <span class="label label-warning">
             <%= "Best Answer Selected" %>
           </span>
         </h5>
@@ -89,7 +93,7 @@
 
           <% if answer.best_answer? %>
             <h5 class="text-right">
-              <span class="label label-primary">
+              <span class="label label-warning">
                 <%= "Best Answer!" %>
               </span>
             </h5>
