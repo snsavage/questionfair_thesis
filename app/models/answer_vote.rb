@@ -1,8 +1,7 @@
 class AnswerVote < ActiveRecord::Base
 
   # Source: http://railscasts.com/episodes/364-active-record-reputation-system
-
-  belongs_to :answer, touch: true
+  belongs_to :answer, touch: true, counter_cache: true
   belongs_to :user, touch: true
 
   validates :user_id, uniqueness: {scope: :answer_id, message: "You may only vote on an answer once."}

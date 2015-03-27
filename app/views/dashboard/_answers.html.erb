@@ -27,7 +27,7 @@
             <tr>
               <td><%= link_to truncate(answer.question.question, length: 40), 
                 question_path(answer.question) %></td>
-              <td><%= truncate(answer.question.question, length: 40) %>
+              <td><%= truncate(answer.answer, length: 40) %>
               <td class="text-center"><%= answer.answer_votes.size %></td>
               <td><%= link_to answer.question.category, 
                 questions_path(category: answer.question.category) %></td>

@@ -46,7 +46,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    @answers = @question.answers.includes(:user, :answer_votes)
+    @answers = @question.answers.includes(:user, :answer_votes).order(:best).order(answer_votes_count: :desc).order(:created_at)
     @answer = @question.answers.build
   end
 

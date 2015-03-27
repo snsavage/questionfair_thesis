@@ -19,6 +19,12 @@ class StaticController < ApplicationController
       else
         @contact_message.subject = "Contacting QuestionFair.com"
       end
+    else
+      if params[:from] == "Category Suggestion"
+        @contact_message.subject = "Category Suggestion for QuestionFair.com"
+      else
+        @contact_message.subject = "Contacting QuestionFair.com"
+      end
     end
   end
 
