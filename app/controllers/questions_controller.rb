@@ -4,7 +4,11 @@ class QuestionsController < ApplicationController
 
   load_and_authorize_resource :question
 
+  add_breadcrumb "Home", :root_path
+
   def search
+
+    add_breadcrumb "Search", :search_questions_path
 
     @questions = Question.search_all(params[:search]).page(params[:page]).order('created_at DESC').per_page(20)
 
@@ -13,11 +17,16 @@ class QuestionsController < ApplicationController
   def geo_search
 
     @locations = Question.select(:city_state).where("city_state ILIKE ?", "%#{params[:term]}%").group(:city_state)
-    render json: @locations.map(&:city_state)
+    respond_to do |format|
+      format.json { render json: @locations.map(&:city_state) }
+      format.html { redirect_to root_path }
+    end
 
   end
 
   def index
+
+    add_breadcrumb "Browse", :questions_path
 
     if params[:location].present?
       @location = Question.get_stored_location(params[:location])
@@ -45,6 +54,9 @@ class QuestionsController < ApplicationController
   end
 
   def show
+
+    add_breadcrumb "View Question", :question_path
+
     @question = Question.find(params[:id])
     @answers = @question.answers.includes(:user, :answer_votes).order(best: :desc).order(answer_votes_count: :desc).order(:created_at)
     @answer = @question.answers.build
@@ -59,6 +71,7 @@ class QuestionsController < ApplicationController
   end
 
   def create
+
     @question = Question.new(question_params)
     @question.user_id = current_user.id
     if @question.save

@@ -30,6 +30,7 @@ gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
 
 gem 'geocoder'
+gem 'breadcrumbs_on_rails'
 
 gem 'google-analytics-rails'
 gem 'newrelic_rpm'

@@ -3,6 +3,8 @@ class DashboardController < ApplicationController
   before_filter :authenticate_user!
   skip_authorization_check
 
+  add_breadcrumb "Dashboard", :root_path
+
   def index
 
     if user_signed_in?

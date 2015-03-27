@@ -3,13 +3,19 @@ class StaticController < ApplicationController
   # before_filter :authenticate_user!
   skip_authorization_check
 
+  add_breadcrumb "Home", :root_path
+
   def welcome
+    add_breadcrumb "Welcome", :welcome_path
   end
 
   def about
+    add_breadcrumb "About", :about_path
   end
 
   def contact
+    add_breadcrumb "Contact", :contact_path
+
     @contact_message = EmailMessage.new
     if current_user
       @contact_message.name = current_user.nickname
@@ -45,9 +51,11 @@ class StaticController < ApplicationController
   end
 
   def privacy
+    add_breadcrumb "Privacy Policy", :privacy_path
   end
 
   def terms
+    add_breadcrumb "Terms of Use", :terms_path
   end
 
   private

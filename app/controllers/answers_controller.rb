@@ -5,6 +5,8 @@ class AnswersController < ApplicationController
   load_and_authorize_resource :question
   load_and_authorize_resource :answer, through: :question
 
+  add_breadcrumb "Home", :root_path
+
   def edit
   end
 
