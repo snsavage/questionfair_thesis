@@ -53,6 +53,17 @@
 
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-5">
+        <div class="checkbox">
+          <label>
+            <%= f.check_box :mail_chimp %>
+            <%= f.label :mail_chimp, "Sign up to our newsletter." %>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-5">
         <%= f.submit "Update", class: "btn btn-default" %>
       </div>
     </div>

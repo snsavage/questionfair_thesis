@@ -6,7 +6,7 @@ class AddConfirmedToAnswers < ActiveRecord::Migration
     answers = Answer.all
     for answer in answers
       if answer.best.nil?
-        answer.best == false
+        answer.best = false
       end
     end
 

@@ -55,7 +55,7 @@ class StaticController < ApplicationController
   end
 
   def terms
-    add_breadcrumb "Terms of Use", :terms_path
+    add_breadcrumb "Terms of Service", :terms_path
   end
 
   private
