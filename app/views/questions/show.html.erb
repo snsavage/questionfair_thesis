@@ -1,3 +1,15 @@
+<% content_for :facebook_open_graph do %>
+
+  <meta property="og:url" content="<%= request.original_url %>" />
+  <meta property="og:title" content="Question asked on QuestionFair.com..." />
+  <meta property="og:description" content="<%= @question.question %>" />
+  <meta property="og:site_name" content="QuestionFair"/>
+  <meta property="fb:app_id" content="<%= ENV['FB_APP_ID'] %>" />
+  <meta property="og:type" content="Question" />
+  <meta property="og:image" content="#{root_url}/images/badge-orange.png />
+
+<% end %>
+
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
