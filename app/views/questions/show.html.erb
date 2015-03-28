@@ -1,3 +1,12 @@
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=280232818766972&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="col-md-offset-1 col-sm-8">
   <div class="row">
     <div class="col-sm-8">
@@ -30,6 +39,9 @@
           </span>
         </h5>
       <% end %>
+    </div>
+    <div class="text-right">
+      <div class="fb-like" data-href="<%= request.original_url %>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
     </div>
   </div>
   
