@@ -58,7 +58,7 @@ class QuestionsController < ApplicationController
     add_breadcrumb "View Question", :question_path
 
     @question = Question.find(params[:id])
-    @answers = @question.answers.includes(:user, :answer_votes).order(best: :desc).order(answer_votes_count: :desc).order(:created_at)
+    @answers = @question.answers.includes(:user, :answer_votes).order(best: :desc).order(created_at: :desc)
     @answer = @question.answers.build
   end
 
@@ -78,6 +78,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question.user_id = current_user.id
     if @question.save
+      reward_points @question, :ask
       redirect_to @question
     else
       render 'new'
@@ -96,6 +97,8 @@ class QuestionsController < ApplicationController
   def destroy
     @question = Question.find(params[:id])
     @question.destroy
+
+    remove_points @question
 
     redirect_to questions_path
   end

@@ -25,6 +25,48 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def reward_points(rewardable, action = params[:action], type)
+      points = Point.values[type]
+      current_user.points.create rewardable: rewardable, action: action, description: type, points: points 
+      flash[:points] = "You just earned #{points} points."
+    end
+
+    def remove_points(rewardable)
+      point = current_user.points.where(rewardable_id: rewardable.id, 
+                                        rewardable_type: rewardable.class.name).first
+      point.destroy
+    end
+
+    def reward_best_points(question, answer, action = params[:action])
+      question_points = Point.values[:best_question]
+      answer_points = Point.values[:best_answer]
+      vote_points = Point.values[:best_vote]
+
+      Point.create(user_id: question.user_id,
+                   action: action,
+                   rewardable_id: question.id,
+                   rewardable_type: question.class.name,
+                   description: :best_question,
+                   points: question_points)
+
+      Point.create(user_id: answer.user_id,
+                   action: action,
+                   rewardable_id: answer.id,
+                   rewardable_type: answer.class.name,
+                   description: :best_answer,
+                   points: answer_points)
+
+      answer.answer_votes.each do |vote|
+        Point.create(user_id: vote.user_id,
+                     action: action,
+                     rewardable_id: vote.id,
+                     rewardable_type: vote.class.name,
+                     description: :best_vote,
+                     points: vote_points)   
+      end     
+
+    end
+
   # Source: https://github.com/ryanb/cancan/wiki/Accessing-Request-Data
   private
 

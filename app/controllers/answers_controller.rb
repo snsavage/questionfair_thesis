@@ -19,7 +19,8 @@ class AnswersController < ApplicationController
     @answer = @question.answers.build(answer_params)
     @answer.user_id = current_user.id
     if @answer.save
-      redirect_to question_path(@question)
+      reward_points @answer, :answer
+      redirect_to question_path(@question), notice: "Thank you for your answer."
     else
       render 'edit'
     end
@@ -30,6 +31,8 @@ class AnswersController < ApplicationController
     @question = Question.find(@answer.question_id)
     @answer.destroy
 
+    remove_points @answer
+
     redirect_to question_path(@question)
   end
 
@@ -38,6 +41,7 @@ class AnswersController < ApplicationController
     @vote = AnswerVote.new(answer_id: params[:id], user_id: current_user.id)
 
     if @vote.save
+      reward_points @vote, :vote
       redirect_to :back, notice: "Thank you for voting."
     else
       redirect_to :back, notice: "Your vote could not be saved."
@@ -51,6 +55,7 @@ class AnswersController < ApplicationController
 
     if @vote.length == 1
       @vote[0].destroy
+      remove_points @vote
     else
       logger.error "Can't delete more than one vote at a time.  AnswersController: Unvote"
       redirect_to :back, notice: "Your vote could not be removed."
@@ -64,6 +69,7 @@ class AnswersController < ApplicationController
     @answer = Answer.find(params[:id])
     @answer.best = true
     if @answer.save
+      reward_best_points @question, @answer
       redirect_to :back, notice: "Thank you for selecting a best answer."
     else
       redirect_to :back, notice: "Your selection could not be saved."

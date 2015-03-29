@@ -1,6 +1,6 @@
 <div class="col-md-12">
 
-  <% if @questions.count == 0 %>
+  <% if @questions.empty? %>
     <div class="col-md-12 text-center">
       <h4>You haven't asked any questions.</h4>
       <h4><small><%= link_to "Click Here", new_question_path %> to ask a new question.</small></h4>

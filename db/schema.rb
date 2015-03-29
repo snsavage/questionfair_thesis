@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150327171708) do
+ActiveRecord::Schema.define(version: 20150329151527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,20 @@ ActiveRecord::Schema.define(version: 20150327171708) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "points", force: true do |t|
+    t.integer  "user_id"
+    t.string   "action"
+    t.integer  "rewardable_id"
+    t.string   "rewardable_type"
+    t.string   "description"
+    t.integer  "points"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "points", ["rewardable_id"], name: "index_points_on_rewardable_id", using: :btree
+  add_index "points", ["user_id"], name: "index_points_on_user_id", using: :btree
 
   create_table "questions", force: true do |t|
     t.text     "question"

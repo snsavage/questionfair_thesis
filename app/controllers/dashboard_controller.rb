@@ -11,9 +11,11 @@ class DashboardController < ApplicationController
 
     if user_signed_in?
       @questions = current_user.questions.all.order(created_at: :desc)
-      @answers = current_user.answers.includes(:question).all
+      @answers = current_user.answers.includes(:question).all.order(created_at: :desc)
       @user = current_user
       @friendship = current_user.friendships.build
+      @points = current_user.points.order(created_at: :desc)
+      @total_points = current_user.points.sum(:points)
     else
       render 'questions#index'
     end

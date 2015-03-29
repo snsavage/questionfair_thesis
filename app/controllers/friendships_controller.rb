@@ -10,6 +10,7 @@ class FriendshipsController < ApplicationController
     @friendship_inverse[:friend_confirmed] = true
 
     if @friendship.save && @friendship_inverse.save
+      reward_points @friendship, :friend_confirm
       redirect_to dashboard_index_path(anchor: "friends"), 
         notice: "Friend confirmed."
     else
@@ -29,6 +30,7 @@ class FriendshipsController < ApplicationController
         redirect_to dashboard_index_path(anchor: "friends"), 
           alert: "You cannot friend yourself."
       elsif @friendship.save && @friendship_inverse.save
+        reward_points @friendship, :friend_request
         redirect_to dashboard_index_path(anchor: "friends"), 
           notice: "Friendship requested.  Waiting for confirmation."
       else

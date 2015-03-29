@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  action: MyString
+  rewardable_id: 
+  rewardable_type: MyString
+
+two:
+  user_id: 
+  action: MyString
+  rewardable_id: 
+  rewardable_type: MyString
