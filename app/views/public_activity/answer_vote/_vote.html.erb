@@ -4,7 +4,7 @@
   </div>
   <div class="media-body">
     <p><strong><%= activity.owner.nickname.capitalize %> voted on an answer <%= time_ago_in_words(activity.created_at, include_seconds: false) %> ago.</strong></p>
-    <p>Question: <%= activity.trackable.answer.question.question %></p>
+    <p>Question: <%= link_to activity.trackable.answer.question.question, activity.trackable.answer.question %></p>
     <p>Voted on Answer: <%= activity.trackable.answer.answer %></p>
   </div>
 </div>
