@@ -1,4 +1,32 @@
-<div class="col-md-2">
+<div class="col-md-3">
+  
+  <div>
+    <p class="text-center"><%= link_to "Remove All Search Filters" %></p>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Search</div>
+    <div class="panel-body">
+      <%= form_tag questions_path, :method => 'get', class: "form-group", role: "search" do %>
+        <div class="form-group">
+          <%= label_tag "Search", nil, class: "control-label" %>
+          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search" %>
+          <%= hidden_field_tag(:category, params[:category]) %>
+          <%= hidden_field_tag(:location, params[:location]) %>
+          <%= hidden_field_tag(:distance, params[:distance]) %>
+        </div>
+        <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
+      <% end %>
+    </div>
+    <div class="panel-footer">
+      <%= link_to "Remove Search Filter", {controller: "questions", 
+                                        action: "index", 
+                                        category: params[:category],
+                                        location: params[:location],
+                                        distance: params[:distance],
+                                        search: "" } %>
+    </div>
+  </div>
 
   <div class="panel panel-default">
     <div class="panel-heading">Search Nearby</div>
@@ -17,8 +45,18 @@
           <%= label_tag "Distance", nil, class: "control-label" %>
           <%= select_tag :distance, options_for_select(Question.distances, @distance.to_i), class: "form-control" %>
         </div>
-        <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
+        <%= hidden_field_tag(:category, params[:category]) %>
+        <%= hidden_field_tag(:search, params[:search]) %>
+        <%= submit_tag "Nearby Search", name: nil, class: "btn btn-default" %>
       <% end %>
+    </div>
+    <div class="panel-footer">
+      <%= link_to "Remove Search Nearby Filter", {controller: "questions", 
+                                        action: "index", 
+                                        category: params[:category],
+                                        location: "",
+                                        distance: "",
+                                        search: params[:search] } %>
     </div>
   </div>
 
@@ -27,32 +65,49 @@
     <div class="list-group" >
       <% Question.category_list_with_all.sort.each do |category| %>
         <% if category == @category %>
-            <%= link_to category.titleize, {:controller => "questions", :action => "index", :category => category }, class: "list-group-item active" %>
+            <%= link_to category.titleize, {controller: "questions", 
+                                            action: "index", 
+                                            category: category, 
+                                            location: params[:location],
+                                            distance: params[:distance],
+                                            search: params[:search] }, class: "list-group-item active" %>
         <% else %>
-            <%= link_to category.titleize, {:controller => "questions", :action => "index", :category => category }, class: "list-group-item" %>
+            <%= link_to category.titleize, {controller: "questions", 
+                                            action: "index", 
+                                            category: category,
+                                            location: params[:location],
+                                            distance: params[:distance],
+                                            search: params[:search] }, class: "list-group-item" %>
         <% end %>
       <% end %>
     </div>
     <div class="panel-footer">
-      <%= link_to "Suggest New Category", contact_path(from: "Category Suggestion"), 
-        class: "text-center" %>
+      <%= link_to "Remove Search Filter", {controller: "questions", 
+                                        action: "index", 
+                                        category: "All",
+                                        location: params[:location],
+                                        distance: params[:distance],
+                                        search: params[:search] } %>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= link_to "Suggest New Category", contact_path(from: "Category Suggestion"), class: "text-center" %>
     </div>
   </div>
 </div>
 
 <div class="col-md-8">
-  <% if @questions.count == 0 %>
-    <div class="col-md-12 text-center">
-      <h4>No questions have been asked in the <%= @category.titleize %> category.</h4>
-      <h4><small><%= link_to "Click Here", new_question_path %> to ask a new question.</small></h4>
-    </div>
+
+  <h3>Search &amp; Browse Questions</h3>
+
+  <% if !@questions.exists? %>
+
+    <h3>No questions have been found.</h3>
+
   <% elsif %>
-  
-    <% if @category == "All" %>
-      <h3 class="recent-questions">All Recent Questions</h3>
-    <% else %>
-      <h3 class="recent-questions"><%= @category.singularize.titleize %> Questions</h3>
-    <% end %>
+
+    <h3><small><%= @questions.size %> <%= "questions".pluralize(@questions.size) %> have been found.</small></h3> 
 
     <div class="text-center">
       <%= will_paginate @questions, class: "pagination-sm", renderer: BootstrapPagination::Rails %>

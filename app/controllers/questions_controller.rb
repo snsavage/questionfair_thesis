@@ -6,13 +6,13 @@ class QuestionsController < ApplicationController
 
   add_breadcrumb "Home", :root_path
 
-  def search
+  # def search
 
-    add_breadcrumb "Search", :search_questions_path
+  #   add_breadcrumb "Search", :search_questions_path
 
-    @questions = Question.search_all(params[:search]).page(params[:page]).order('created_at DESC').per_page(20)
+  #   @questions = Question.search_all(params[:search]).page(params[:page]).order('created_at DESC').per_page(20)
 
-  end
+  # end
 
   def geo_search
 
@@ -45,10 +45,10 @@ class QuestionsController < ApplicationController
 
     if Question.category_in_categories?(params[:category])
       @category = params[:category]
-      @questions = Question.includes(:user).by_location(@location, @distance).by_category(@category).page(params[:page]).order('created_at DESC').per_page(20)
+      @questions = Question.includes(:user).by_location(@location, @distance).by_category(@category).full_text(params[:search]).page(params[:page]).order('created_at DESC').per_page(20)
     else
       @category = "All"
-      @questions = Question.includes(:user).by_location(@location, @distance).page(params[:page]).order('created_at DESC').per_page(20)
+      @questions = Question.includes(:user).by_location(@location, @distance).by_category(@category).full_text(params[:search]).page(params[:page]).order('created_at DESC').per_page(20)
     end
 
   end

@@ -22,7 +22,7 @@
         <li class="<%= 'active' if current_page?(new_question_path) %>"><%= link_to 'Ask a Question', new_question_path %></li>
       </ul>
       
-      <%= form_tag search_questions_path, :method => 'get', class: "navbar-form  navbar-left", role: "search" do %>
+      <%= form_tag questions_path, :method => 'get', class: "navbar-form  navbar-left", role: "search" do %>
         <div class="input-group">
           <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search" %>
           <span class="input-group-btn">

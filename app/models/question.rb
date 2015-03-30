@@ -42,13 +42,15 @@ class Question < ActiveRecord::Base
     end
   }
 
-  scope :by_location, -> location, distance {
-    if location.present?
-      near(location, distance)
-    else
-      all
-    end
-  }
+  scope :by_location, -> location, distance { near(location, distance) if location.present? && distance.present? }
+
+  # scope :by_location, -> location, distance {
+  #   if location.present? && distance.present?
+  #     near(location, distance)
+  #   else
+  #     all
+  #   end
+  # }
 
   def create_address
     "#{city}, #{state}, #{country}"
@@ -86,6 +88,16 @@ class Question < ActiveRecord::Base
     # where("question ILIKE ? OR category ILIKE ?", "%#{search}%", "%#{search}%")
     where("question @@ ? OR category @@ ?", search, search)
   }
+
+  # Source: https://github.com/Casecommons/pg_search/issues/49
+  def self.full_text(query)
+    if query.present?
+      search_all(query)
+    else
+      # No query? Return all records, newest first.
+      order("created_at DESC")
+    end
+  end
 
   pg_search_scope :search_all, 
     against: [:question, :category, :city, :state, :country], 
