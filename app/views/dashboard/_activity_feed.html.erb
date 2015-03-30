@@ -1,1 +1,12 @@
-<h1>Recent activity.</h1>
+<h4>Recent Activity</h4>
+
+<hr />
+
+<div class="col-md-10">
+  <% @activities.each do |activity| %>
+    <% if activity.trackable %>
+      <%= render_activity activity %>
+      <hr />
+    <% end %>
+  <% end %>
+</div>

@@ -33,6 +33,7 @@ gem 'geocoder'
 gem 'breadcrumbs_on_rails'
 
 gem 'gibbon'
+gem 'public_activity'
 
 gem 'google-analytics-rails'
 gem 'newrelic_rpm'

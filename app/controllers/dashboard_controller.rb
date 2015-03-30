@@ -16,6 +16,7 @@ class DashboardController < ApplicationController
       @friendship = current_user.friendships.build
       @points = current_user.points.order(created_at: :desc)
       @total_points = current_user.points.sum(:points)
+      @activities = PublicActivity::Activity.includes(:trackable, :owner).order(created_at: :desc).where(owner_id: current_user.friend_ids, owner_type: "User")
     else
       render 'questions#index'
     end

@@ -78,6 +78,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question.user_id = current_user.id
     if @question.save
+      @question.create_activity :create, owner: current_user
       reward_points @question, :ask
       redirect_to @question
     else

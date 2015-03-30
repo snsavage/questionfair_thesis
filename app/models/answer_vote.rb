@@ -1,5 +1,7 @@
 class AnswerVote < ActiveRecord::Base
 
+  include PublicActivity::Common
+
   # Source: http://railscasts.com/episodes/364-active-record-reputation-system
   belongs_to :answer, touch: true, counter_cache: true
   belongs_to :user, touch: true

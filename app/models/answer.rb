@@ -1,4 +1,6 @@
 class Answer < ActiveRecord::Base
+
+  include PublicActivity::Common
   
   belongs_to :user, touch: true
   belongs_to :question, touch: true, counter_cache: true

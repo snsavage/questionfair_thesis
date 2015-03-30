@@ -1,6 +1,7 @@
 class Question < ActiveRecord::Base
 
   include PgSearch
+  include PublicActivity::Common
 
   geocoded_by :address do |obj, results|
     if geo = results.first

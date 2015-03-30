@@ -34,7 +34,9 @@ class ApplicationController < ActionController::Base
     def remove_points(rewardable)
       point = current_user.points.where(rewardable_id: rewardable.id, 
                                         rewardable_type: rewardable.class.name).first
+
       point.destroy
+
     end
 
     def reward_best_points(question, answer, action = params[:action])
