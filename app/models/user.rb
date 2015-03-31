@@ -35,6 +35,14 @@ class User < ActiveRecord::Base
     super if invitation_token.nil?
   end
 
+  def friends_with(user)
+    if user.nil?
+      false
+    else
+      self.friendships.confirmed.where(friend_id: user.id).exists?
+    end
+  end
+
 
   # Source: http://mrgeorgegray.com/workflow/getting-a-grip-on-gibbon/
   def mailchimp_status

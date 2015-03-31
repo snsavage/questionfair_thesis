@@ -3,7 +3,7 @@
     <%= image_tag(gravatar_url(activity.owner), size: "48x48", alt: "Gravatar", class: "media-object") %>
   </div>
   <div class="media-body">
-    <p><strong><%= activity.owner.nickname.capitalize %> selected the best answer for a question <%= time_ago_in_words(activity.created_at, include_seconds: false) %> ago.</strong></p>
+    <p><strong><%= link_to activity.owner.nickname.capitalize, user_path(activity.owner) %> selected the best answer for a question <%= time_ago_in_words(activity.created_at, include_seconds: false) %> ago.</strong></p>
     <p>Question: <%= link_to activity.trackable.question, activity.trackable %></p>
     <p>Best Answer: <%= activity.trackable.answers.where(best: true).first.answer %></p>
   </div>

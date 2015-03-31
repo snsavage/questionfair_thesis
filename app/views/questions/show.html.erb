@@ -21,7 +21,7 @@
   </div>
   <div class="row">
     <div class="col-sm-8">
-      <h4><small>Asked by <%= @question.user.nickname %> on 
+      <h4><small>Asked by <%= link_to_if(@question.user.friends_with(current_user), @question.user.nickname, user_path(@question.user)) %> on 
         <%= @question.created_at.strftime("%A, %B %d, %Y") %> at 
         <%= @question.created_at.strftime("%I:%M %p") %> EST.</small></h4>
     </div>
@@ -76,7 +76,8 @@
 
           <h4 class="media-heading"><%= answer.answer %></h4>
           
-          <h4><small>Answer provided by <%= answer.user.nickname %> <%= time_ago_in_words(answer.created_at, include_seconds: false) %> ago. </small></h4>
+          <h4><small>Answer provided by <%= link_to_if(answer.user.friends_with(current_user), answer.user.nickname, user_path(answer.user)) %> 
+            <%= time_ago_in_words(answer.created_at, include_seconds: false) %> ago. </small></h4>
           
           <% if answer.answer_votes.any? %>
             <h4>

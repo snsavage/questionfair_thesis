@@ -5,7 +5,9 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">Search</div>
+    <div class="panel-heading">
+      <h4 class="panel-title">Search</h4>
+    </div>
     <div class="panel-body">
       <%= form_tag questions_path, :method => 'get', class: "form-group", role: "search" do %>
         <div class="form-group">
@@ -29,7 +31,9 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">Search Nearby</div>
+    <div class="panel-heading">
+      <h4 class="panel-title">Search Nearby</h4>
+    </div>
     <div class="panel-body">
       <%= form_tag questions_path, :method => 'get', class: "form-group", role: "search" do %>
         <div class="form-group">
@@ -61,7 +65,9 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">Categories</div>
+    <div class="panel-heading">
+      <h4 class="panel-title">Categories</h4>
+    </div>
     <div class="list-group" >
       <% Question.category_list_with_all.sort.each do |category| %>
         <% if category == @category %>
@@ -128,7 +134,7 @@
         </div>
         <div class="row">
           <div class="col-sm-8">
-            <h4><small>Asked by <%= link_to question.user.nickname, user_path(question.user) %> 
+            <h4><small>Asked by <%= link_to_if(question.user.friends_with(current_user), question.user.nickname, user_path(question.user)) %> 
               <%= time_ago_in_words(question.created_at, include_seconds: false) %> ago. </small></h4>
           </div>
           <div class="col-sm-4">

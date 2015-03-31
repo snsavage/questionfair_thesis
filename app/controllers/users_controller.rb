@@ -16,8 +16,15 @@ class UsersController < ApplicationController
   def show
 
     @user = User.find(params[:id])
-
-    add_breadcrumb @user.nickname, :user_path
+    if @user.friends_with(current_user)
+      @questions = @user.questions.order(created_at: :desc)
+      @answers = @user.answers.includes(:question).order(created_at: :desc)
+      @points = @user.points.sum(:points)
+      add_breadcrumb @user.nickname, :user_path
+      render 'show'
+    else
+      redirect_to root_path, notice: "You are not friends with this user."
+    end
 
   end
 

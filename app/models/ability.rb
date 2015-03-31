@@ -17,7 +17,7 @@ class Ability
     # Abilities for User
     can :index, User
     can :show, User
-
+    
     # Abilities for Answer
     can :create, Answer
     cannot :create, Answer, :question => { :user_id => user.id }
