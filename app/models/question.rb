@@ -24,8 +24,9 @@ class Question < ActiveRecord::Base
   has_many :answers 
   has_many :answer_votes, through: :answers
 
-  CATEGORIES = %w(Entertainment Hotels Movies Other Restaurants Shopping 
-                    Sports  Technology Television Vacations Books)
+  CATEGORIES = ['Automotive','Books','Business','Cooking','Dining','Health & Fitness',
+    'Movies & TV','Music','Other','Outdoors','Parenting','Pets','Sports','Technology',
+    'Things to Do','Travel']
 
   validates :question, :category, presence: true
   validates :question, length: { maximum: 500 }

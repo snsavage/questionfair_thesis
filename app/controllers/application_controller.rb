@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
     end
 
     def after_sign_in_path_for(resource)
-      dashboard_index_path
+      questions_path
     end
 
 end

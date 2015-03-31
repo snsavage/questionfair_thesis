@@ -10,9 +10,8 @@
       <div class="thumbnail">
         <div class="caption">
           <h3>Ask, Answer &amp; Earn Points</h3>
-          <p>Find questions by category or nearby a location.  Answer questions, 
-            vote on answers, try to provide the best answer.  Earn points as you
-            participate!</p>
+          <p>Find questions by category or a nearby location.  Ask questions, answer questions 
+            and vote on answers.  Earn points as you participate!</p>
           <p><%= link_to "Browse Questions Now", questions_path, class: "btn btn-primary" %></p>
         </div>
       </div>
@@ -21,7 +20,7 @@
       <div class="thumbnail">
         <div class="caption">
           <h3>Search for Questions &amp; Answers</h3>
-          <p>If you're looking for something specific, search for questions and answers you need!</p>
+          <p>Search for the questions and answers you need!</p>
           <%= form_tag questions_path, :method => 'get', role: "search" do %>
             <div class="input-group">
               <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search" %>
