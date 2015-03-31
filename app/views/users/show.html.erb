@@ -27,8 +27,8 @@
       <div class="panel-body">
         <ul>
           <% for answer in @answers %>
-            <li>Answered the question "<%= link_to answer.question.question, question_path(answer.question) %>" 
-              with the answer "<%= answer.answer %>" asked 
+            <li>Answered the question "<%= link_to answer.question.question, question_path(answer.question) %>" <br />
+              With the answer "<%= answer.answer %>" <br />
               <%= time_ago_in_words(answer.created_at, include_seconds: false).titleize %> ago. </li>
           <% end %>
         </ul>
