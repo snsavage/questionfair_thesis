@@ -27,6 +27,15 @@ class AnswersController < ApplicationController
     end
   end
 
+  def update
+    @answer = Answer.find(params[:id])
+    if @answer.update(answer_params)
+      redirect_to question_path(@question), notice: "Thank you for your answer."
+    else
+      render 'edit'
+    end
+  end
+
   def destroy
     @answer = Answer.find(params[:id])
     @question = Question.find(@answer.question_id)

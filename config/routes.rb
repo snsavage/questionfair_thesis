@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   post "static/contact_messages" => "static#contact_messages", :as => "contact_messages"
 
   resources :questions do
-    resources :answers, only: [ :edit, :create, :destroy ] do
+    resources :answers, only: [ :edit, :create, :update, :destroy ] do
       member { post :vote, :unvote, :best }
     end
     collection do
