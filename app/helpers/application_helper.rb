@@ -1,7 +1,7 @@
 module ApplicationHelper
 
-
-  # Code from https://gist.github.com/suryart/7418454
+  # Formating for flash messages in Bootstrap.
+  # Source: https://gist.github.com/suryart/7418454
   BOOTSTRAP_FLASH_MSG = {
     points: 'success',
     success: 'success',
@@ -10,11 +10,13 @@ module ApplicationHelper
     notice: 'info'
   }
 
+  # Method for Bootstrap flash message formatting.
   def bootstrap_class_for(flash_type)
     BOOTSTRAP_FLASH_MSG[flash_type.to_sym]
   end
 
-  # Code from http://railscasts.com/episodes/244-gravatar
+  # Retrieves avatar images from Gravatar. 
+  # Source: http://railscasts.com/episodes/244-gravatar
   def gravatar_url(user)
     default_url = "#{root_url}images/badge-orange.png"
     gravatar_id = Digest::MD5.hexdigest(user.email.downcase)

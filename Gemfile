@@ -42,6 +42,7 @@ group :development, :test do
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'rack-mini-profiler'
   gem 'rails-erd'
+  gem 'annotate', '~> 2.6.6'
 end
 
 group :development do

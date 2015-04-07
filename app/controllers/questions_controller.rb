@@ -6,14 +6,7 @@ class QuestionsController < ApplicationController
 
   add_breadcrumb "Home", :root_path
 
-  # def search
-
-  #   add_breadcrumb "Search", :search_questions_path
-
-  #   @questions = Question.search_all(params[:search]).page(params[:page]).order('created_at DESC').per_page(20)
-
-  # end
-
+  # Location lookup for location search.  Responses with JSON format.
   def geo_search
 
     @locations = Question.select(:city_state).where("city_state ILIKE ?", "%#{params[:term]}%").group(:city_state)
@@ -24,10 +17,14 @@ class QuestionsController < ApplicationController
 
   end
 
+  # Questions Index Action.
   def index
 
     add_breadcrumb "Browse", :questions_path
 
+    # Checks for location query and then pulls latitude and longitude
+    # information is location is found in the database.  
+    # This technique is used instead of a proper caching system. 
     if params[:location].present?
       @location = Question.get_stored_location(params[:location])
       @location = @location.nil? ? params[:location] : [@location.latitude, @location.longitude]
@@ -35,6 +32,7 @@ class QuestionsController < ApplicationController
       @location = params[:location]
     end
 
+    # Sets the default distance to 10 miles if no distance is present.
     if !params[:distance].present?
       @distance = 10
     elsif Question.distances.map { |distance| distance[0] == params[:distance].to_i }
@@ -43,6 +41,7 @@ class QuestionsController < ApplicationController
       @distance = 10
     end
 
+    # Search query.  First checks is category is available.  
     if Question.category_in_categories?(params[:category])
       @category = params[:category]
       @questions = Question.includes(:user).by_location(@location, @distance).by_category(@category).full_text(params[:search]).page(params[:page]).order('created_at DESC').per_page(20)
@@ -53,6 +52,7 @@ class QuestionsController < ApplicationController
 
   end
 
+  # Questions show.  
   def show
     add_breadcrumb "Browse", :questions_path
     add_breadcrumb "View Question", :question_path
@@ -62,11 +62,13 @@ class QuestionsController < ApplicationController
     @answer = @question.answers.build
   end
 
+  # Ask a question.
   def new
     add_breadcrumb "Ask Question"
     @question = Question.new
   end
 
+  # Edit a question.
   def edit
     @question = Question.find(params[:id])
     add_breadcrumb "Browse", :questions_path
@@ -74,6 +76,7 @@ class QuestionsController < ApplicationController
     add_breadcrumb "Edit Question"
   end
 
+  # Save a question. 
   def create
     @question = Question.new(question_params)
     @question.user_id = current_user.id
@@ -86,6 +89,7 @@ class QuestionsController < ApplicationController
     end
   end
 
+  # Update a question. 
   def update
     @question = Question.find(params[:id])
     if @question.update(question_params)
@@ -95,6 +99,7 @@ class QuestionsController < ApplicationController
     end
   end
 
+  # Delete a question.  
   def destroy
     @question = Question.find(params[:id])
     @question.destroy
@@ -105,6 +110,8 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+    # Whitelisted question parameters. 
     def question_params
       params.require(:question).permit(:question, :category, :address)
     end

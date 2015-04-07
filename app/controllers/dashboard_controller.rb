@@ -9,6 +9,8 @@ class DashboardController < ApplicationController
 
     add_breadcrumb "Dashboard", :dashboard_index_path
 
+    # Dashboard Index.  Instantiates need variables for dashboard 
+    # display.  
     if user_signed_in?
       @questions = current_user.questions.all.order(created_at: :desc)
       @answers = current_user.answers.includes(:question).all.order(created_at: :desc)
@@ -22,7 +24,5 @@ class DashboardController < ApplicationController
     end
 
   end
-
-
 
 end

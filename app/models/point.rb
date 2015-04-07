@@ -1,7 +1,25 @@
+# == Schema Information
+#
+# Table name: points
+#
+#  id              :integer          not null, primary key
+#  user_id         :integer
+#  action          :string(255)
+#  rewardable_id   :integer
+#  rewardable_type :string(255)
+#  description     :string(255)
+#  points          :integer
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+
 class Point < ActiveRecord::Base
+
+  # Points associations.
   belongs_to :user
   belongs_to :rewardable, polymorphic: true
 
+  # Hash of points values. 
   def self.values
     { ask: 10,
       answer: 10,
@@ -14,6 +32,7 @@ class Point < ActiveRecord::Base
       friend_confirm: 5 }
   end
 
+  # Hash of points flash messages.
   def self.description_text
     { ask: "Asked a question.",
       answer: "Answered a question.",

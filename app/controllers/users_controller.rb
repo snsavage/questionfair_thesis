@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   add_breadcrumb "Home", :root_path
 
+  # Actions for Friends Auto Complete.  Returns JSON. 
   def index
     @nicknames = User.select(:nickname).where("nickname ILIKE ?", "%#{params[:term]}%").order(:nickname)
     respond_to do |format|
@@ -13,6 +14,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # User profile pages. 
   def show
 
     @user = User.find(params[:id])

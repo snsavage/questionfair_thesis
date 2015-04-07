@@ -1,3 +1,4 @@
+# Formatter for Devise error messages with Bootstrap.
 # Source: https://github.com/plataformatec/devise/wiki/Override-devise_error_messages!-for-views
 
 module DeviseHelper

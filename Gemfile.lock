@@ -28,6 +28,9 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.7)
+    annotate (2.6.8)
+      activerecord (>= 3.2, <= 4.3)
+      rake (~> 10.4)
     ansi (1.5.0)
     arel (5.0.1.20140414130214)
     autoprefixer-rails (5.1.5)
@@ -251,6 +254,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate (~> 2.6.6)
   bootstrap-sass (~> 3.3.3)
   breadcrumbs_on_rails
   bullet

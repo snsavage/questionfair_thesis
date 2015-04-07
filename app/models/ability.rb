@@ -1,3 +1,4 @@
+# Definitions of Authorization abilities. 
 class Ability
   include CanCan::Ability
 
@@ -25,17 +26,11 @@ class Ability
     can :vote, Answer
     can :unvote, Answer
     can :best, Answer, question: { user_id: user.id }
-    # cannot :modify, Answer, question.has_best_answer? 
 
     # Abilities for Friendship
     can :create, Friendship
     can :update, Friendship, user_id: user.id
     can :destroy, Friendship, user_id: user.id
-
-    # Abilities for Answer Votes
-    # can :vote, AnswerVote
-    # cannot :create, AnswerVote, :question => { :user_id => user.id }
-
 
   end
 

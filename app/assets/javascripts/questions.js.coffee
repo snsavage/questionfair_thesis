@@ -1,11 +1,14 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+# Location Search Auto Completion
+# Source: http://railscasts.com/episodes/
+# 102-auto-complete-association-revised
 
 jQuery ->
   $('#location_city_state').autocomplete
     source: $('#location_city_state').data('autocomplete-source')
 
+
+# Facebook Like and Share Buttons
+# Source: http://reed.github.io/turbolinks-compatibility/facebook.html
 
 fb_root = null
 fb_events_bound = false
